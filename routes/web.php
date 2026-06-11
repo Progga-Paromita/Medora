@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\MedicinesController;
 
 
 Route::get('/', [AuthController :: class, 'login']);
@@ -36,6 +37,17 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/customers/edit/{id}', [CustomersController::class, 'update']);
 
     Route::get('admin/customers/delete/{id}', [CustomersController::class, 'delete']);
+
+    //medicines
+    Route::get(uri: 'admin/medicines', action: [MedicinesController :: class, 'list']);
+    Route:: get(uri: 'admin/medicines/create', action: [MedicinesController :: class, 'create']);
+    Route::post(uri: 'admin/medicines/create', action: [MedicinesController :: class, 'store']);
+    Route:: get(uri: 'admin/medicines/edit/{id}', action: [MedicinesController :: class, 'edit']);
+    Route:: post(uri: 'admin/medicines/edit/{id}', action: [MedicinesController::class, 'update']);
+    Route::get(uri: 'admin/medicines/delete/{id}', action:
+
+[MedicinesController :: class, 'delete']);
+
 });
 
 Route::get('logout', [AuthController :: class, 'logout']);

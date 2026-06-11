@@ -80,6 +80,10 @@
                                     <a href="{{ url('admin/customers/delete/'.$value->id) }}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="9" class="text-center text-danger">No Record Found</td>
+                            </tr>
                         @endforeach
                         </tbody>
 

@@ -9,7 +9,6 @@
         <div class="container-fluid">
 
             <div class="row mb-2">
-
                 <div class="col-sm-6">
                     <h1>Administrators</h1>
                 </div>
@@ -22,7 +21,6 @@
                         <li class="breadcrumb-item active">Administrators</li>
                     </ol>
                 </div>
-
             </div>
 
             <div class="row mb-2">
@@ -39,7 +37,9 @@
     <!-- Main Content -->
     <section class="content">
         <div class="container-fluid">
+
             @include('message')
+
             <div class="row">
                 <div class="col-md-12">
 
@@ -69,39 +69,37 @@
                                 </thead>
 
                                 <tbody>
+                                    @foreach($getRecord as $value)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
 
-                                @foreach($getRecord as $value)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                            <!-- Photo -->
+                                            <td>
+                                                <img src="{{ $value->getProfileImage() }}"
+                                                     style="width:50px; height:50px; border-radius:50%;">
+                                            </td>
 
-                                        <!-- Photo -->
-                                        <td>
-                                            <img src="{{ $value->getProfileImage() }}"
-                                                 style="width:50px; height:50px; border-radius:50%;">
-                                        </td>
+                                            <td>{{ $value->name }} {{ $value->last_name }}</td>
+                                            <td>{{ $value->phone }}</td>
+                                            <td>{{ $value->email }}</td>
+                                            <td>{{ $value->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                            <td>{{ $value->is_role == 1 ? 'Admin' : 'User' }}</td>
+                                            <td>{{ $value->created_at }}</td>
+                                            <td>{{ $value->updated_at }}</td>
 
-                                        <td>{{ $value->name }} {{ $value->last_name }}</td>
-                                        <td>{{ $value->phone }}</td>
-                                        <td>{{ $value->email }}</td>
-                                        <td>{{ $value->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                        <td>{{ $value->is_role == 1 ? 'Admin' : 'User' }}</td>
-                                        <td>{{ $value->created_at }}</td>
-                                        <td>{{ $value->updated_at }}</td>
+                                            <td>
+                                                <a href="{{ url('admin/users/edit/'.$value->id) }}"
+                                                   class="btn btn-primary btn-sm">
+                                                    <i class="nav-icon bi bi-pencil"></i> Edit
+                                                </a>
 
-                                        <td>
-                                            <a href="{{ url('admin/users/edit/'.$value->id) }}"
-                                               class="btn btn-primary btn-sm">
-                                                <i class="nav-icon bi bi-pencil"></i> Edit
-                                            </a>
-
-                                            <a href="{{ url('admin/users/delete/'.$value->id) }}"
-                                               class="btn btn-danger btn-sm">
-                                                <i class="nav-icon bi bi-trash"></i> Delete
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
+                                                <a href="{{ url('admin/users/delete/'.$value->id) }}"
+                                                   class="btn btn-danger btn-sm">
+                                                    <i class="nav-icon bi bi-trash"></i> Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
 
                             </table>

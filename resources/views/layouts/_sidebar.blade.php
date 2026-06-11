@@ -44,6 +44,16 @@
     </a>
 </li>
 
+
+<li class="nav-item">
+    <a href="{{ url('admin/medicines') }}"
+       class="nav-link {{ Request::segment(2) == 'medicines' ? 'active' : '' }}">
+        <i class="nav-icon bi bi-capsule"></i>
+        <p>Medicines</p>
+    </a>
+</li>
+
+
 <li class="nav-item">
     <a href="{{ url('logout') }}" class="nav-link">
         <i class="nav-icon bi bi-box-arrow-right"></i>
