@@ -32,7 +32,15 @@
     <a href="{{ url('admin/users') }}" 
        class="nav-link {{ Request::segment(2) == 'users' ? 'active' : '' }}">
         <i class="nav-icon bi bi-people"></i>
-        <p>Users</p>
+        <p>Staff Users</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ url('admin/customers') }}"
+       class="nav-link {{ Request::segment(2) == 'customers' ? 'active' : '' }}">
+        <i class="nav-icon bi bi-people"></i>
+        <p>Customers</p>
     </a>
 </li>
 
