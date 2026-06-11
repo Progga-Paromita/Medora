@@ -39,7 +39,7 @@
     <!-- Main Content -->
     <section class="content">
         <div class="container-fluid">
-
+            @include('message')
             <div class="row">
                 <div class="col-md-12">
 
@@ -89,12 +89,12 @@
                                         <td>{{ $value->updated_at }}</td>
 
                                         <td>
-                                            <a href="{{ url('admin/users/'.$value->id.'/edit') }}"
+                                            <a href="{{ url('admin/users/edit/'.$value->id) }}"
                                                class="btn btn-primary btn-sm">
                                                 <i class="nav-icon bi bi-pencil"></i> Edit
                                             </a>
 
-                                            <a href="{{ url('admin/users/'.$value->id.'/delete') }}"
+                                            <a href="{{ url('admin/users/delete/'.$value->id) }}"
                                                class="btn btn-danger btn-sm">
                                                 <i class="nav-icon bi bi-trash"></i> Delete
                                             </a>

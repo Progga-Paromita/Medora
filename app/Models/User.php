@@ -46,11 +46,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    static public function getSingleRecord($id)
+    {
+    return self::find($id);
+    }
+
+
     static public function getRecord()
    {
     return User::select('users.*')
         ->where('is_deleted', '=', 0)
-        ->where('status', '=', 1)
+        // ->where('status', '=', 1)
         ->get();
    }
    public function getProfileImage()

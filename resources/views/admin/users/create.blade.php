@@ -6,13 +6,10 @@
 <div class="container-fluid mt-3 mb-3">
 <div class="row">
 <div class="col-md-8">
-
 <div class="card card-primary">
-
 <div class="card-header">
-<h3 class="card-title">Add New Administrator</h3>
+<h3 class="card-title">Add New User</h3>
 </div>
-
 <div class="card-body">
 
 <form action="{{ url('admin/users/create') }}" method="post" enctype="multipart/form-data">
@@ -67,7 +64,7 @@
 </div>
 
 <div class="card-footer">
-<button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" class="btn btn-primary"><i class="nav-icon bi bi-save"></i> Submit</button>
 </div>
 
 </form>

@@ -24,7 +24,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/users/show/{id}', [UserController :: class, 'show']);
     Route::get('admin/users/edit/{id}', [UserController :: class, 'edit']);
     Route::post('admin/users/edit/{id}', [UserController :: class, 'update']);
-    Route::get('admin/users/delete/{id}', [UserController :: class, 'destroy']);
+    Route::get('admin/users/delete/{id}', [UserController :: class, 'delete']);
 });
 
 Route::get('logout', [AuthController :: class, 'logout']);
