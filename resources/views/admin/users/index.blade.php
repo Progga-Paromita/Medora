@@ -10,12 +10,10 @@
 
             <div class="row mb-2">
 
-                <!-- Title -->
                 <div class="col-sm-6">
                     <h1>Administrators</h1>
                 </div>
 
-                <!-- Breadcrumb -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item">
@@ -27,11 +25,10 @@
 
             </div>
 
-            <!-- Add Button -->
             <div class="row mb-2">
                 <div class="col-md-12 text-end">
                     <a href="{{ url('admin/users/create') }}" class="btn btn-primary">
-                        Add New
+                        <i class="nav-icon bi bi-plus"></i> Add New
                     </a>
                 </div>
             </div>
@@ -53,7 +50,62 @@
                         </div>
 
                         <div class="card-body">
-                            <!-- table content here -->
+
+                            <table class="table table-bordered table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Role</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                @foreach($getRecord as $value)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+
+                                        <!-- Photo -->
+                                        <td>
+                                            <img src="{{ $value->getProfileImage() }}"
+                                                 style="width:50px; height:50px; border-radius:50%;">
+                                        </td>
+
+                                        <td>{{ $value->name }} {{ $value->last_name }}</td>
+                                        <td>{{ $value->phone }}</td>
+                                        <td>{{ $value->email }}</td>
+                                        <td>{{ $value->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{ $value->is_role == 1 ? 'Admin' : 'User' }}</td>
+                                        <td>{{ $value->created_at }}</td>
+                                        <td>{{ $value->updated_at }}</td>
+
+                                        <td>
+                                            <a href="{{ url('admin/users/'.$value->id.'/edit') }}"
+                                               class="btn btn-primary btn-sm">
+                                                <i class="nav-icon bi bi-pencil"></i> Edit
+                                            </a>
+
+                                            <a href="{{ url('admin/users/'.$value->id.'/delete') }}"
+                                               class="btn btn-danger btn-sm">
+                                                <i class="nav-icon bi bi-trash"></i> Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+
+                            </table>
+
                         </div>
 
                     </div>

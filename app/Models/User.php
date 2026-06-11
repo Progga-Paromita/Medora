@@ -46,4 +46,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    static public function getRecord()
+   {
+    return User::select('users.*')
+        ->where('is_deleted', '=', 0)
+        ->where('status', '=', 1)
+        ->get();
+   }
+   public function getProfileImage()
+{
+    if (!empty($this->profile_image) && file_exists('uploads/profile/' . $this->profile_image)) {
+        return url('uploads/profile/' . $this->profile_image);
+    } else {
+        return "https://ui-avatars.com/api/?name=" . urlencode($this->name . " " . $this->last_name) . "&color=7F9CF5&background=EBF4FF";
+    }
+}
 }
