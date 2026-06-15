@@ -36,8 +36,16 @@
 </div>
 
 <div class="form-group">
-    <label for="supplier_name">Supplier Name</label>
-    <input type="text" name="supplier_id" class="form-control" id="supplier_id" value="{{ old('supplier_id') }}" placeholder="Enter supplier name">
+    <label for="supplier_id">Supplier Name</label>
+    <select name="supplier_id" class="form-control">
+        <option value="">Select Supplier</option>
+
+        @foreach($getSuppliers as $supplier)
+            <option value="{{ $supplier->id }}">{{ $supplier->name }}    
+            </option>
+        @endforeach
+
+    </select>
 </div>
 
 

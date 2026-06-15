@@ -61,22 +61,19 @@
                         </thead>
 
                         <tbody>
-                            @foreach($getRecord as $value)
+                            @forelse($getRecord as $value)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
 
-                                    <!-- Image -->
                                     <td>
-                                        @if(!empty($value->getProfileImage()))
-                                            <img src="{{ $value->getProfileImage() }}"
-                                                 style="width:50px; height:50px; border-radius:50%;">
-                                        @endif
+                                        <img src="{{ $value->getProfileImage() }}"
+                                             style="width:50px; height:50px; border-radius:50%;">
                                     </td>
 
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->packaging }}</td>
                                     <td>{{ $value->generic_name }}</td>
-                                    <td>{{ $value->supplier_id }}</td>
+                                    <td>{{ optional($value->getSupplierName)->name }}</td>
                                     <td>{{ $value->created_at }}</td>
                                     <td>{{ $value->updated_at }}</td>
 
@@ -92,7 +89,13 @@
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="9" class="text-center text-danger">
+                                        No Record Found
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
 
                     </table>

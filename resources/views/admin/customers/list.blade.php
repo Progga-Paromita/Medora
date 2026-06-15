@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="content-wrapper">
+
     <section class="content-header">
         <div class="container-fluid">
 
@@ -62,29 +63,38 @@
                         </thead>
 
                         <tbody>
-                        @foreach($customers as $value)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $value->name }}</td>
-                                <td>{{ $value->phone }}</td>
-                                <td>{{ $value->email }}</td>
-                                <td>{{ $value->address }}</td>
-                                <td>{{ $value->doctor_name }}</td>
-                                <td>{{ $value->doctor_address }}</td>
-                                <td>{{ $value->status ?? 'N/A' }}</td>
-                                <td>{{ $value->created_at }}</td>
-                                <td>{{ $value->updated_at }}</td>
 
-                                <td>
-                                    <a href="{{ url('admin/customers/edit/'.$value->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="{{ url('admin/customers/delete/'.$value->id) }}" class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
+                            @forelse($customers as $value)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->phone }}</td>
+                                    <td>{{ $value->email }}</td>
+                                    <td>{{ $value->address }}</td>
+                                    <td>{{ $value->doctor_name }}</td>
+                                    <td>{{ $value->doctor_address }}</td>
+                                    <td>{{ $value->status ?? 'N/A' }}</td>
+                                    <td>{{ $value->created_at }}</td>
+                                    <td>{{ $value->updated_at }}</td>
+
+                                    <td>
+                                        <a href="{{ url('admin/customers/edit/'.$value->id) }}" class="btn btn-primary btn-sm">
+                                            Edit
+                                        </a>
+
+                                        <a href="{{ url('admin/customers/delete/'.$value->id) }}" class="btn btn-danger btn-sm">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
                             @empty
-                            <tr>
-                                <td colspan="9" class="text-center text-danger">No Record Found</td>
-                            </tr>
-                        @endforeach
+                                <tr>
+                                    <td colspan="11" class="text-center text-danger">
+                                        No Record Found
+                                    </td>
+                                </tr>
+                            @endforelse
+
                         </tbody>
 
                     </table>
@@ -94,6 +104,7 @@
 
         </div>
     </section>
+
 </div>
 
 @endsection

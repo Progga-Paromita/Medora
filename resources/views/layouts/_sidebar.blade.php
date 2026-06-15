@@ -37,6 +37,16 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{ url('admin/suppliers') }}" 
+       class="nav-link {{ Request::segment(2) == 'suppliers' ? 'active' : '' }}">
+        
+        <i class="nav-icon bi bi-people"></i>
+        <p>Suppliers</p>
+        
+    </a>
+</li>
+
+<li class="nav-item">
     <a href="{{ url('admin/customers') }}"
        class="nav-link {{ Request::segment(2) == 'customers' ? 'active' : '' }}">
         <i class="nav-icon bi bi-people"></i>
@@ -50,6 +60,16 @@
        class="nav-link {{ Request::segment(2) == 'medicines' ? 'active' : '' }}">
         <i class="nav-icon bi bi-capsule"></i>
         <p>Medicines</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ url('admin/stocks') }}"
+       class="nav-link {{ Request::segment(2) == 'stocks' ? 'active' : '' }}">
+
+        <i class="nav-icon bi bi-boxes"></i>
+        <p>Stocks</p>
+
     </a>
 </li>
 

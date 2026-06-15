@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\MedicinesModel;
 
-class SuppliersModel extends Model
+class StockModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'suppliers';
+    protected $table = 'stock';
 
     public static function getSingleRecord($id)
     {
@@ -18,8 +20,14 @@ class SuppliersModel extends Model
 
     public static function getRecord()
     {
-        return self::where('is_deleted', 0)
+        return self::select('*')
+            ->where('is_deleted', 0)
             ->orderBy('id', 'desc')
             ->get();
+    }
+
+    public function getMedicine(): BelongsTo
+    {
+        return $this->belongsTo(MedicinesModel::class, 'medicine_id');
     }
 }
