@@ -1,5 +1,5 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-    
+
     <div class="sidebar-brand">
         <a href="{{ url('admin/dashboard') }}" class="brand-link">
             <img
@@ -21,7 +21,7 @@
             >
 
             <li class="nav-item">
-    <a href="{{ url('admin/dashboard') }}" 
+    <a href="{{ url('admin/dashboard') }}"
        class="nav-link {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}">
         <i class="nav-icon bi bi-speedometer"></i>
         <p>Dashboard</p>
@@ -29,7 +29,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ url('admin/users') }}" 
+    <a href="{{ url('admin/users') }}"
        class="nav-link {{ Request::segment(2) == 'users' ? 'active' : '' }}">
         <i class="nav-icon bi bi-people"></i>
         <p>Staff Users</p>
@@ -37,12 +37,12 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ url('admin/suppliers') }}" 
+    <a href="{{ url('admin/suppliers') }}"
        class="nav-link {{ Request::segment(2) == 'suppliers' ? 'active' : '' }}">
-        
+
         <i class="nav-icon bi bi-people"></i>
         <p>Suppliers</p>
-        
+
     </a>
 </li>
 
@@ -72,6 +72,12 @@
 
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ url('admin/invoices') }}" class="nav-link {{ Request::segment(2) == 'invoices' ? 'active' : '' }}">
+        <i class="nav-icon bi bi-receipt"></i>
+        <p>Invoices</p>
+    </a>
+</li>
 
 
 <li class="nav-item">
@@ -81,7 +87,7 @@
     </a>
 </li>
 
-               
+
 
             </ul>
         </nav>

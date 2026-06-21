@@ -7,6 +7,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\MedicinesController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\InvoicesController;
+
+
 
 Route::get('/', [AuthController::class, 'login']);
 Route::post('login_post', [AuthController::class, 'login_post']);
@@ -62,6 +65,27 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/stocks/edit/{id}', [MedicinesController::class, 'edit_stock']);
     Route::post('admin/stocks/edit/{id}', [MedicinesController::class, 'update_stock']);
     Route::get('admin/stocks/delete/{id}', [MedicinesController::class, 'delete_stock']);
+
+// Invoices
+Route::get('admin/invoices', [InvoicesController::class, 'list']);
+Route::get('admin/invoices/create', [InvoicesController::class, 'add']);
+Route::post('admin/invoices/create', [InvoicesController::class, 'store']);
+Route::get('admin/invoices/edit/{id}', [InvoicesController::class, 'edit']);
+Route::post('admin/invoices/edit/{id}', [InvoicesController::class, 'update']);
+Route::get('admin/invoices/delete/{id}', [InvoicesController::class, 'delete']);
+
+
+// Purchase Invoices
+Route::prefix('admin/purchases')->group(function () {
+    Route::get('/', [InvoicesController::class, 'purchases']);
+    Route::get('add', [InvoicesController::class, 'addPurchase']);
+    Route::post('add', [InvoicesController::class, 'storePurchase']);
+    Route::get('edit/{id}', [InvoicesController::class, 'editPurchase']);
+    Route::post('edit/{id}', [InvoicesController::class, 'updatePurchase']);
+    Route::get('delete/{id}', [InvoicesController::class, 'deletePurchase']);
+});
+
+
 
 });
 
