@@ -79,6 +79,13 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ url('admin/purchases') }}" class="nav-link {{ Request::segment(2) == 'purchases' ? 'active' : '' }}">
+        <i class="nav-icon bi bi-cart4"></i>
+        <p>Purchases</p>
+    </a>
+</li>
+
 
 <li class="nav-item">
     <a href="{{ url('logout') }}" class="nav-link">
