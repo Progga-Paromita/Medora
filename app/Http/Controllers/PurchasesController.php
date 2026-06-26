@@ -3,31 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\InvoicesModel;
-use App\Models\CustomersModel;
 use App\Models\SuppliersModel;
-use App\Models\PurchaseModel;
+use App\Models\PurchasesModel;
 
 class PurchasesController extends Controller
 {
+    // Purchase List
     public function purchases()
     {
         $data['header_title'] = 'Purchase List';
+        $data['getPurchases'] = PurchasesModel::getRecord();
+
         return view('admin.purchases.list', $data);
     }
 
+    // Add Purchase Form
     public function addPurchase()
     {
         $data['header_title'] = 'Add Purchase';
 
-        // Fetch active invoices for selection
         $data['getInvoiceNo'] = InvoicesModel::where('is_deleted', 0)
             ->select('id', 'invoice_number', 'net_total')
             ->get();
 
-        // FIXED: Changed 'supplier_name' to 'name' to resolve the database error
         $data['getSuppliers'] = SuppliersModel::where('is_deleted', 0)
             ->select('id', 'name')
             ->get();
@@ -35,33 +34,95 @@ class PurchasesController extends Controller
         return view('admin.purchases.add', $data);
     }
 
+    // Store Purchase
     public function storePurchase(Request $request)
-{
-    // 1. Validate the incoming request data
-    $request->validate([
-        'supplier_id'    => 'required|integer',
-        'invoice_id'     => 'required|integer',
-        'net_total'      => 'required|numeric', // <-- Added validation for total number
-        'voucher_number' => 'nullable|string|max:255',
-        'purchase_date'  => 'required|date',
-        'payment_status' => 'required|integer',
-    ]);
+    {
+        $request->validate([
+            'supplier_id'    => 'required|integer',
+            'invoice_id'     => 'required|integer',
+            'voucher_number' => 'nullable|string|max:255',
+            'purchase_date'  => 'required|date',
+            'net_total'      => 'required|numeric',
+            'payment_status' => 'required|integer',
+        ]);
 
-    // 2. Instantiate the model and map the request inputs
-    $purchase = new PurchasesModel();
+        $purchase = new PurchasesModel();
 
-    $purchase->supplier_id    = $request->supplier_id;
-    $purchase->invoice_id     = $request->invoice_id;
-    $purchase->net_total       = $request->net_total; // <-- Added assignment to save to DB
-    $purchase->voucher_number = $request->voucher_number;
-    $purchase->purchase_date  = $request->purchase_date;
-    $purchase->payment_status = $request->payment_status;
-    $purchase->is_deleted     = 0;
+        $purchase->supplier_id = trim($request->supplier_id);
+        $purchase->invoice_id = trim($request->invoice_id);
+        $purchase->voucher_number = trim($request->voucher_number);
+        $purchase->purchase_date = date('Y-m-d', strtotime($request->purchase_date));
+        $purchase->net_total = trim($request->net_total);
+        $purchase->payment_status = trim($request->payment_status);
+        $purchase->is_deleted = 0;
 
-    // 3. Save to database
-    $purchase->save();
+        $purchase->save();
 
-    // 4. Redirect
-    return redirect('admin/purchases')->with('success', 'Purchase record added successfully!');
-}
+        return redirect('admin/purchases')
+            ->with('success', 'Purchase Added Successfully');
+    }
+
+    // Edit Purchase
+    public function editPurchase($id)
+    {
+        $data['header_title'] = 'Edit Purchase';
+
+        $data['getRecord'] = PurchasesModel::getSingleRecord($id);
+
+        $data['getInvoiceNo'] = InvoicesModel::where('is_deleted', 0)
+            ->select('id', 'invoice_number', 'net_total')
+            ->get();
+
+        $data['getSuppliers'] = SuppliersModel::where('is_deleted', 0)
+            ->select('id', 'name')
+            ->get();
+
+        return view('admin.purchases.edit', $data);
+    }
+
+    // Update Purchase
+    public function updatePurchase(Request $request, $id)
+    {
+        $request->validate([
+            'supplier_id'    => 'required|integer',
+            'invoice_id'     => 'required|integer',
+            'voucher_number' => 'nullable|string|max:255',
+            'purchase_date'  => 'required|date',
+            'net_total'      => 'required|numeric',
+            'payment_status' => 'required|integer',
+        ]);
+
+        $purchase = PurchasesModel::getSingleRecord($id);
+
+        if (!$purchase) {
+            return redirect('admin/purchases')
+                ->with('error', 'Purchase not found.');
+        }
+
+        $purchase->supplier_id = trim($request->supplier_id);
+        $purchase->invoice_id = trim($request->invoice_id);
+        $purchase->voucher_number = trim($request->voucher_number);
+        $purchase->purchase_date = date('Y-m-d', strtotime($request->purchase_date));
+        $purchase->net_total = trim($request->net_total);
+        $purchase->payment_status = trim($request->payment_status);
+
+        $purchase->save();
+
+        return redirect('admin/purchases')
+            ->with('success', 'Purchase Updated Successfully');
+    }
+
+    // Delete Purchase
+    public function deletePurchase($id)
+    {
+        $purchase = PurchasesModel::getSingleRecord($id);
+
+        if ($purchase) {
+            $purchase->is_deleted = 1;
+            $purchase->save();
+        }
+
+        return redirect('admin/purchases')
+            ->with('success', 'Purchase Deleted Successfully');
+    }
 }
