@@ -85,6 +85,23 @@
         <p>Purchases</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ url('admin/my-account') }}"
+       class="nav-link {{ Request::segment(2) == 'my-account' ? 'active' : '' }}">
+        <i class="nav-icon bi bi-person-circle"></i>
+        <p>My Account</p>
+    </a>
+</li>
+
+<li class="nav-header">Settings</li>
+
+<li class="nav-item">
+    <a href="{{ url('admin/settings') }}"
+       class="nav-link {{ Request::segment(2) == 'settings' ? 'active' : '' }}">
+        <i class="nav-icon bi bi-gear"></i>
+        <p>System Settings</p>
+    </a>
+</li>
 
 
 <li class="nav-item">
