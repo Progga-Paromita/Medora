@@ -20,8 +20,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
+        'profile_image',
+        'phone',
         'password',
+        'is_role',
+        'status',
+        'is_deleted',
     ];
 
     /**
@@ -57,7 +63,7 @@ class User extends Authenticatable
    {
     return User::select('users.*')
         ->where('is_deleted', '=', 0)
-        // ->where('status', '=', 1)
+        ->where('is_role', '=', 2)
         ->get();
    }
    public function getProfileImage()

@@ -3,7 +3,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Forgot Password | Pharmacy Management System</title>
+    <title>Reset Password | Pharmacy Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
 
@@ -141,30 +141,35 @@
         <div class="card-body p-4">
           @include('message')
 
-          <p class="login-box-msg mb-4 text-secondary">Forgot Password</p>
-          <p class="text-sm text-muted text-center mb-4">Enter your registered email below, and we'll send you a secure link to reset your password.</p>
+          <p class="login-box-msg mb-4 text-secondary">Reset Password</p>
+          <p class="text-sm text-muted text-center mb-4">Enter your new secure password below.</p>
 
-          <form action="{{ url('forgot_post') }}" method="post">
+          <form action="{{ url('reset/' . $token) }}" method="post">
             @csrf
-            <!-- Email -->
-            <div class="input-group mb-4">
-              <input type="email" name="email" class="form-control" placeholder="Email Address" required autofocus />
+            <!-- Password -->
+            <div class="input-group mb-3">
+              <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="New Password" required autofocus />
               <span class="input-group-text">
-                <i class="bi bi-envelope"></i>
+                <i class="bi bi-lock-fill"></i>
+              </span>
+              @error('password')
+                <div class="invalid-feedback w-100">{{ $message }}</div>
+              @enderror
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-group mb-4">
+              <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm New Password" required />
+              <span class="input-group-text">
+                <i class="bi bi-lock-fill"></i>
               </span>
             </div>
 
             <!-- Submit -->
             <div class="d-grid mb-3">
-              <button type="submit" class="btn btn-primary">Send Reset Link</button>
+              <button type="submit" class="btn btn-primary">Reset Password</button>
             </div>
           </form>
-
-          <div class="mt-4 pt-3 border-top text-center">
-            <p class="mb-0 text-sm text-secondary">
-              Remembered your credentials? <a href="{{ url('/') }}" class="text-decoration-none text-primary fw-bold">Login</a>
-            </p>
-          </div>
         </div>
       </div>
     </div>

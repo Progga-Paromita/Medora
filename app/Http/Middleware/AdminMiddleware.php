@@ -15,18 +15,15 @@ class AdminMiddleware
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-{
-    if (Auth::check()) {
-
-        if (Auth::user()->is_role == 1) {
-            return $next($request);
-        } else {
-            return redirect(url('/'));
+    {
+        if (Auth::check()) {
+            if (Auth::user()->is_role == 1) {
+                return $next($request);
+            } else {
+                return redirect('admin/dashboard')->with('error', 'Access Denied: Admin privileges required.');
+            }
         }
 
-    } else {
-        Auth::logout();
-        return redirect(url('/'));
+        return redirect(url('/'))->with('error', 'Please login first.');
     }
-}
 }
