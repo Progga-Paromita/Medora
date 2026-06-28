@@ -27,14 +27,14 @@
     <style>
       /* Theme styles matching user specifications */
       [data-bs-theme="light"] {
-        --bg-color: #F7F8FA;
+        --bg-color: #FFFDF7;
         --card-bg: #FFFFFF;
         --text-color: #15171A;
-        --border-color: #E4E2DC;
-        --primary-color: #2F5DD7;
-        --primary-hover: #1E4BB8;
+        --border-color: #E5E7EB;
+        --primary-color: rgb(242, 181, 39);
+        --primary-hover: rgb(220, 160, 20);
         --input-bg: #FFFFFF;
-        --logo-color: #2F5DD7;
+        --logo-color: rgb(242, 181, 39);
       }
       [data-bs-theme="dark"] {
         --bg-color: #0B0D12;

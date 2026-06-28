@@ -1,4 +1,4 @@
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+<aside class="app-sidebar shadow">
     <div class="sidebar-brand">
         <a href="{{ url('admin/dashboard') }}" class="brand-link">
             <img

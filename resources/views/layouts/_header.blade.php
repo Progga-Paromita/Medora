@@ -1,39 +1,41 @@
-<nav class="app-header navbar navbar-expand bg-body">
+<nav class="app-header navbar navbar-expand bg-body align-items-center py-2 px-3">
     <!--begin::Container-->
-    <div class="container-fluid">
-        <!--begin::Start Navbar Links-->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                    <i class="bi bi-list"></i>
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        
+        <!-- Left Section: Toggle & Search -->
+        <div class="d-flex align-items-center">
+            <li class="nav-item list-unstyled">
+                <a class="nav-link btn btn-link p-2 rounded-circle hover-bg-light me-2" data-lte-toggle="sidebar" href="#" role="button" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--bs-body-color);">
+                    <i class="bi bi-list fs-5"></i>
                 </a>
             </li>
-            <li class="nav-item d-none d-md-block">
-                <a href="{{ url('admin/dashboard') }}" class="nav-link">
-                    <i class="bi bi-speedometer2 me-1"></i> Dashboard
-                </a>
-            </li>
-        </ul>
-        <!--end::Start Navbar Links-->
 
-        <!--begin::End Navbar Links-->
-        <ul class="navbar-nav ms-auto">
-            <!--begin::Color Mode Toggle-->
-            <li class="nav-item dropdown">
+            <!-- Pill-shaped rounded search box -->
+            <div class="d-none d-md-flex align-items-center px-3 rounded-pill bg-light border" style="height: 40px; width: 300px; transition: all 0.3s ease; border-color: var(--bs-border-color) !important;">
+                <i class="bi bi-search text-muted me-2"></i>
+                <input type="text" class="border-0 bg-transparent text-sm w-100" placeholder="Search medicines, orders..." style="outline: none; font-size: 14px; color: var(--bs-body-color);">
+            </div>
+        </div>
+
+        <!-- Right Section: Theme, Notifications, Profile -->
+        <ul class="navbar-nav align-items-center ms-auto">
+            <!-- Theme Toggle -->
+            <li class="nav-item dropdown me-2">
                 <a
-                    class="nav-link"
+                    class="nav-link btn btn-link p-2 rounded-circle hover-bg-light"
                     href="#"
                     id="bd-theme"
                     aria-label="Toggle color scheme"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
+                    style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--bs-body-color);"
                 >
                     <i class="bi bi-sun-fill" data-lte-theme-icon="light"></i>
                     <i class="bi bi-moon-fill d-none" data-lte-theme-icon="dark"></i>
                     <i class="bi bi-circle-half d-none" data-lte-theme-icon="auto"></i>
                 </a>
                 <ul
-                    class="dropdown-menu dropdown-menu-end"
+                    class="dropdown-menu dropdown-menu-end border-0 shadow mt-2 rounded-4"
                     aria-labelledby="bd-theme"
                     style="--bs-dropdown-min-width: 8rem"
                 >
@@ -75,22 +77,41 @@
                     </li>
                 </ul>
             </li>
-            <!--end::Color Mode Toggle-->
 
-            <!--begin::User Menu Dropdown-->
+            <!-- Notifications Dropdown -->
+            <li class="nav-item dropdown me-2">
+                <a class="nav-link btn btn-link p-2 rounded-circle hover-bg-light position-relative" data-bs-toggle="dropdown" href="#" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--bs-body-color);">
+                    <i class="bi bi-bell fs-5"></i>
+                    <span class="position-absolute top-1 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="transform: translate(-12px, 8px) !important;"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4">
+                    <span class="dropdown-item dropdown-header fw-bold">15 Notifications</span>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item text-sm">
+                        <i class="bi bi-envelope me-2 text-primary"></i> 4 new messages
+                    </a>
+                    <a href="#" class="dropdown-item text-sm">
+                        <i class="bi bi-boxes me-2 text-warning"></i> Low stock warning
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer text-center text-sm text-primary">See All Notifications</a>
+                </div>
+            </li>
+
+            <!-- User Menu Dropdown -->
             <li class="nav-item dropdown user-menu">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
                     <img
                         src="{{ Auth::user()->getProfileImage() }}"
-                        class="user-image rounded-circle shadow"
+                        class="user-image rounded-circle shadow-sm"
                         alt="User Image"
-                        style="width: 30px; height: 30px; object-fit: cover;"
+                        style="width: 32px; height: 32px; object-fit: cover;"
                     />
-                    <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                    <span class="d-none d-md-inline ms-2 fw-semibold text-sm">{{ Auth::user()->name }}</span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <!--begin::User Image-->
-                    <li class="user-header text-bg-primary text-center py-4">
+                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4">
+                    <!--User Image-->
+                    <li class="user-header text-bg-primary text-center py-4 rounded-top-4">
                         <img
                             src="{{ Auth::user()->getProfileImage() }}"
                             class="rounded-circle shadow mb-2"
@@ -102,22 +123,19 @@
                             <small class="d-block text-white-50">{{ Auth::user()->is_role == 1 ? 'Administrator' : 'Pharmacy Staff' }}</small>
                         </p>
                     </li>
-                    <!--end::User Image-->
-                    <!--begin::Menu Footer-->
-                    <li class="user-footer d-flex justify-content-between p-3 bg-light">
-                        <a href="{{ url('admin/my-account') }}" class="btn btn-outline-secondary btn-sm">
+                    <!--Menu Footer-->
+                    <li class="user-footer d-flex justify-content-between p-3 bg-light rounded-bottom-4">
+                        <a href="{{ url('admin/my-account') }}" class="btn btn-outline-secondary btn-sm rounded-3">
                             <i class="bi bi-person me-1"></i> Profile
                         </a>
-                        <a href="{{ url('logout') }}" class="btn btn-outline-danger btn-sm">
+                        <a href="{{ url('logout') }}" class="btn btn-outline-danger btn-sm rounded-3">
                             <i class="bi bi-box-arrow-right me-1"></i> Sign out
                         </a>
                     </li>
-                    <!--end::Menu Footer-->
                 </ul>
             </li>
-            <!--end::User Menu Dropdown-->
         </ul>
-        <!--end::End Navbar Links-->
+        <!--end::Right Section-->
     </div>
     <!--end::Container-->
 </nav>

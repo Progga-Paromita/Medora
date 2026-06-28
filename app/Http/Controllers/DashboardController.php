@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\MedicinesModel;
+use App\Models\SuppliersModel;
+use App\Models\CustomersModel;
+use App\Models\PurchasesModel;
+use App\Models\InvoicesModel;
+use App\Models\StockModel;
 
 class DashboardController extends Controller
 {
@@ -15,6 +21,17 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $data['header_title'] = 'Dashboard';
+
+        // Load 8 statistic counts from database
+        $data['totalMedicines'] = MedicinesModel::where('is_deleted', 0)->count();
+        $data['totalSuppliers'] = SuppliersModel::where('is_deleted', 0)->count();
+        $data['totalCustomers'] = CustomersModel::where('is_deleted', 0)->count();
+        $data['totalPurchases'] = PurchasesModel::where('is_deleted', 0)->count();
+        $data['totalSales'] = InvoicesModel::where('is_deleted', 0)->count();
+        $data['totalRevenue'] = InvoicesModel::where('is_deleted', 0)->sum('net_total');
+        
+        $data['lowStock'] = StockModel::where('is_deleted', 0)->where('quantity', '<', 10)->count();
+        $data['expiredMedicines'] = StockModel::where('is_deleted', 0)->where('expiry_date', '<', date('Y-m-d'))->count();
 
         return view('admin.dashboard.dashboard', $data);
     }

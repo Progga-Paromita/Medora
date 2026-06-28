@@ -20,7 +20,9 @@
     </script>
 
     <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <!--end::Fonts-->
 
     <!--begin::Third Party Plugins-->
@@ -34,57 +36,69 @@
 
     <!-- Custom Theme Styling -->
     <style>
+      body {
+        font-family: 'Poppins', sans-serif !important;
+      }
+
       /* Light Theme Overrides */
       [data-bs-theme="light"] {
-        --bs-body-bg: #FFFFFF;
+        --bs-body-bg: #FFFDF7;
         --bs-body-color: #15171A;
-        --bs-primary: #2F5DD7;
-        --bs-primary-rgb: 47, 93, 215;
-        --bs-success: #236B45;
-        --bs-success-rgb: 35, 107, 69;
-        --bs-danger: #C2410C;
-        --bs-danger-rgb: 194, 65, 12;
-        --bs-warning: #C2410C;
-        --bs-warning-rgb: 194, 65, 12;
-        --bs-border-color: #E4E2DC;
+        --bs-primary: #F2B527;
+        --bs-primary-rgb: 242, 181, 39;
+        --bs-success: #22C55E;
+        --bs-success-rgb: 34, 197, 94;
+        --bs-danger: #EF4444;
+        --bs-danger-rgb: 239, 68, 68;
+        --bs-warning: #FAC446;
+        --bs-warning-rgb: 250, 196, 70;
+        --bs-border-color: #E5E7EB;
         --bs-card-bg: #FFFFFF;
-        --bs-tertiary-bg: #F7F8FA;
-        --bs-secondary-bg: #F7F8FA;
+        --bs-tertiary-bg: #FFF8E8;
+        --bs-secondary-bg: #FFF8E8;
         
         .content-wrapper, .app-main {
-          background-color: #F7F8FA !important;
+          background-color: #FFF8E8 !important;
         }
         .app-sidebar {
           background-color: #FFFFFF !important;
-          border-right: 1px solid #E4E2DC !important;
+          border-right: 1px solid #E5E7EB !important;
         }
         .app-header {
           background-color: #FFFFFF !important;
-          border-bottom: 1px solid #E4E2DC !important;
+          border-bottom: 1px solid #E5E7EB !important;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03) !important;
         }
         .app-sidebar .sidebar-brand {
-          border-bottom: 1px solid #E4E2DC !important;
+          border-bottom: 1px solid #E5E7EB !important;
           background-color: #FFFFFF !important;
           color: #15171A !important;
         }
         .app-sidebar .sidebar-brand a {
           color: #15171A !important;
         }
+        .app-sidebar .sidebar-brand img {
+          filter: none !important;
+        }
         .nav-link {
           color: #15171A !important;
+          border-radius: 8px;
+          margin: 2px 10px;
+          transition: all 0.3s ease;
         }
         .nav-link:hover {
-          background-color: rgba(47, 93, 215, 0.05) !important;
-          color: #2F5DD7 !important;
+          background-color: #FFF8E8 !important;
+          color: #F2B527 !important;
         }
         .nav-link.active {
-          background-color: rgba(47, 93, 215, 0.1) !important;
-          color: #2F5DD7 !important;
+          background-color: #F2B527 !important;
+          color: #FFFFFF !important;
           font-weight: 600;
+          box-shadow: 0 4px 10px rgba(242, 181, 39, 0.3) !important;
         }
         .app-footer {
           background-color: #FFFFFF !important;
-          border-top: 1px solid #E4E2DC !important;
+          border-top: 1px solid #E5E7EB !important;
           color: #15171A !important;
         }
       }
@@ -125,6 +139,9 @@
         .app-sidebar .sidebar-brand a {
           color: #F2F3F5 !important;
         }
+        .app-sidebar .sidebar-brand img {
+          filter: invert(1) !important;
+        }
         .nav-link {
           color: #F2F3F5 !important;
         }
@@ -145,40 +162,111 @@
       }
 
       /* Premium Universal UI Styles */
+      .hover-bg-light {
+        transition: all 0.2s ease-in-out;
+      }
+      .hover-bg-light:hover {
+        background-color: var(--bs-tertiary-bg) !important;
+      }
       .card {
-        border: 1px solid var(--bs-border-color);
+        border: 1px solid var(--bs-border-color) !important;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
-        border-radius: 0.5rem;
+        border-radius: 15px !important;
+        background-color: var(--bs-card-bg) !important;
+        transition: all 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03) !important;
       }
       .card-header {
         background-color: transparent !important;
         border-bottom: 1px solid var(--bs-border-color);
         font-weight: 600;
       }
+      .btn {
+        border-radius: 10px !important;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+      }
       .btn-primary {
         background-color: var(--bs-primary) !important;
         border-color: var(--bs-primary) !important;
-        font-weight: 500;
-        transition: all 0.2s ease-in-out;
+        color: #FFFFFF !important;
+        font-weight: 600;
+        box-shadow: 0 4px 6px rgba(var(--bs-primary-rgb), 0.2) !important;
       }
       .btn-primary:hover {
-        filter: brightness(1.1);
+        filter: brightness(1.05);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(var(--bs-primary-rgb), 0.3) !important;
+      }
+      .btn-secondary {
+        background-color: #FFFFFF !important;
+        border: 2px solid var(--bs-primary) !important;
+        color: var(--bs-primary) !important;
+        font-weight: 600;
+      }
+      .btn-secondary:hover {
+        background-color: var(--bs-tertiary-bg) !important;
+        color: var(--bs-primary) !important;
+        border-color: var(--bs-primary) !important;
+      }
+      .btn-danger {
+        background-color: var(--bs-danger) !important;
+        border-color: var(--bs-danger) !important;
+        color: #FFFFFF !important;
+      }
+      .btn-success {
+        background-color: var(--bs-success) !important;
+        border-color: var(--bs-success) !important;
+        color: #FFFFFF !important;
       }
       .table-striped tbody tr:nth-of-type(odd) {
-        --bs-table-accent-bg: rgba(0,0,0, 0.015) !important;
+        --bs-table-accent-bg: rgba(0,0,0, 0.01) !important;
       }
       [data-bs-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
-        --bs-table-accent-bg: rgba(255,255,255, 0.015) !important;
+        --bs-table-accent-bg: rgba(255,255,255, 0.01) !important;
       }
-      /* Ensure inputs look clean */
+      .table-responsive {
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid var(--bs-border-color);
+      }
+      .table {
+        margin-bottom: 0 !important;
+      }
+      .table th {
+        background-color: var(--bs-tertiary-bg) !important;
+        color: var(--bs-body-color) !important;
+        font-weight: 600;
+        border-bottom: 2px solid var(--bs-border-color) !important;
+      }
+      .page-item.active .page-link {
+        background-color: var(--bs-primary) !important;
+        border-color: var(--bs-primary) !important;
+        color: #FFFFFF !important;
+      }
+      .page-link {
+        color: var(--bs-primary);
+      }
+      .page-link:hover {
+        color: var(--bs-primary);
+        filter: brightness(0.9);
+      }
+      .form-control:not(.form-control-sm), .form-select:not(.form-select-sm) {
+        height: 48px;
+      }
       .form-control, .form-select {
         border-color: var(--bs-border-color);
         background-color: var(--bs-card-bg);
         color: var(--bs-body-color);
+        border-radius: 10px !important;
+        transition: all 0.3s ease;
       }
       .form-control:focus, .form-select:focus {
-        border-color: var(--bs-primary);
-        box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.15);
+        border-color: var(--bs-primary) !important;
+        box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.15) !important;
         background-color: var(--bs-card-bg);
         color: var(--bs-body-color);
       }
