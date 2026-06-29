@@ -1,86 +1,103 @@
 @extends('layouts.app')
 
 @section('content')
-
-<section class="content">
-    <div class="container-fluid mt-3 mb-3">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-
-                <div class="card card-primary">
-
-                    <div class="card-header">
-                        <h3 class="card-title">Edit User</h3>
-                    </div>
-
-                    <div class="card-body">
-
-                        <form action="{{ url('admin/customers/edit/'.$getRecord->id) }}" method="post">
-                            {{ csrf_field() }}
-
-                            <div class="form-group mb-3">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="name"
-                                    class="form-control"
-                                    value="{{ $getRecord->name }}"
-                                    placeholder="Enter name">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email"
-                                    class="form-control"
-                                    value="{{ $getRecord->email }}"
-                                    placeholder="Enter email">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="phone">Phone</label>
-                                <input type="text" name="phone" id="phone"
-                                    class="form-control"
-                                    value="{{ $getRecord->phone }}"
-                                    placeholder="Enter phone">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="address">Address</label>
-                                <input type="text" name="address" id="address"
-                                    class="form-control"
-                                    value="{{ $getRecord->address }}"
-                                    placeholder="Enter address">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="doctor_name">Doctor's Name</label>
-                                <input type="text" name="doctor_name" id="doctor_name"
-                                    class="form-control"
-                                    value="{{ $getRecord->doctor_name }}"
-                                    placeholder="Enter doctor's name">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="doctor_address">Doctor's Address</label>
-                                <input type="text" name="doctor_address" id="doctor_address"
-                                    class="form-control"
-                                    value="{{ $getRecord->doctor_address }}"
-                                    placeholder="Enter doctor's address">
-                            </div>
-
-                            <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="nav-icon bi bi-save"></i> Update
-                                </button>
-                            </div>
-
-                        </form>
-
-                    </div>
-
+<main class="app-main">
+    <div class="app-content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="mb-0 fw-bold">Edit Customer</h3>
                 </div>
-
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-end">
+                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('admin/customers') }}" class="text-decoration-none">Customers</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
-</section>
 
+    <section class="content">
+        <div class="container-fluid mt-3 mb-5">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header p-4">
+                            <h4 class="card-title fw-bold mb-0">Customer & Patient Registry</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form action="{{ url('admin/customers/edit/' . $customer->id) }}" method="post">
+                                @csrf
+
+                                <div class="row">
+                                    <!-- Name -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="name" class="form-label fw-medium mb-2">Customer Name <span class="text-danger">*</span></label>
+                                            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $customer->name) }}" placeholder="Enter full name" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="phone" class="form-label fw-medium mb-2">Phone Number</label>
+                                            <input type="text" name="phone" class="form-control" id="phone" value="{{ old('phone', $customer->phone) }}" placeholder="Enter phone number">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Email -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label fw-medium mb-2">Email Address</label>
+                                            <input type="email" name="email" class="form-control" id="email" value="{{ old('email', $customer->email) }}" placeholder="Enter email address">
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="address" class="form-label fw-medium mb-2">Home Address</label>
+                                            <input type="text" name="address" class="form-control" id="address" value="{{ old('address', $customer->address) }}" placeholder="Enter home address">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4" style="border-color: var(--bs-border-color) !important;">
+                                <h5 class="fw-bold mb-3 text-white">Prescribing Medical Officer (Optional)</h5>
+
+                                <div class="row">
+                                    <!-- Doctor Name -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="doctor_name" class="form-label fw-medium mb-2">Prescribing Doctor</label>
+                                            <input type="text" name="doctor_name" class="form-control" id="doctor_name" value="{{ old('doctor_name', $customer->doctor_name) }}" placeholder="e.g. Dr. John Doe">
+                                        </div>
+                                    </div>
+
+                                    <!-- Doctor Address -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="doctor_address" class="form-label fw-medium mb-2">Clinic/Hospital Address</label>
+                                            <input type="text" name="doctor_address" class="form-control" id="doctor_address" value="{{ old('doctor_address', $customer->doctor_address) }}" placeholder="Enter clinic address">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top" style="border-color: var(--bs-border-color) !important;">
+                                    <a href="{{ url('admin/customers') }}" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Update Customer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 @endsection

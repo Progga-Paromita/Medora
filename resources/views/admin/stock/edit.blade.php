@@ -1,117 +1,105 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="content-wrapper">
-
-    <section class="content-header">
+<main class="app-main">
+    <div class="app-content-header">
         <div class="container-fluid">
-
-            <div class="row mb-2">
+            <div class="row">
                 <div class="col-sm-6">
-                    <h1>Edit Stock</h1>
+                    <h3 class="mb-0 fw-bold">Edit Stock</h3>
                 </div>
-
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url('admin/dashboard') }}">Home</a>
-                        </li>
-                        <li class="breadcrumb-item active">Edit Stock</li>
+                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('admin/stocks') }}" class="text-decoration-none">Stocks</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
                     </ol>
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
 
     <section class="content">
-        <div class="container-fluid">
-
-            @include('message')
-
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-
-                    <div class="card card-primary">
-
-                        <div class="card-header">
-                            <h3 class="card-title">Edit Stock</h3>
+        <div class="container-fluid mt-3 mb-5">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header p-4">
+                            <h4 class="card-title fw-bold mb-0">Inventory Stock Details</h4>
                         </div>
-
-                        <form action="{{ url('admin/stocks/edit/'.$getRecord->id) }}" method="post">
-                            @csrf
-
-                            <div class="card-body">
+                        <div class="card-body p-4">
+                            <form action="{{ url('admin/stocks/edit/' . $getRecord->id) }}" method="post">
+                                @csrf
 
                                 <!-- Medicine -->
-                                <div class="form-group mb-3">
-                                    <label>Medicine</label>
-                                    <select name="medicine_id" class="form-control" required>
-                                        <option value="">Select Medicine</option>
-
-                                        @foreach($medicines as $medicine)
-                                            <option value="{{ $medicine->id }}"
-                                                {{ $getRecord->medicine_id == $medicine->id ? 'selected' : '' }}>
-                                                {{ $medicine->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="mb-3">
+                                    <div class="form-group">
+                                        <label for="medicine_id" class="form-label fw-medium mb-2">Medicine Product <span class="text-danger">*</span></label>
+                                        <select name="medicine_id" id="medicine_id" class="form-select" required>
+                                            <option value="">-- Select Medicine --</option>
+                                            @foreach($medicines as $medicine)
+                                                <option value="{{ $medicine->id }}" {{ $getRecord->medicine_id == $medicine->id ? 'selected' : '' }}>
+                                                    {{ $medicine->name }} ({{ $medicine->generic_name }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
-                                <!-- Batch ID -->
-                                <div class="form-group mb-3">
-                                    <label>Batch ID</label>
-                                    <input type="text" name="batch_id" class="form-control"
-                                           value="{{ $getRecord->batch_id }}" required>
+                                <div class="row">
+                                    <!-- Batch ID -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="batch_id" class="form-label fw-medium mb-2">Batch Number <span class="text-danger">*</span></label>
+                                            <input type="text" name="batch_id" class="form-control" id="batch_id" value="{{ old('batch_id', $getRecord->batch_id) }}" placeholder="e.g. B-99382" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Expiry Date -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="expiry_date" class="form-label fw-medium mb-2">Expiry Date <span class="text-danger">*</span></label>
+                                            <input type="date" name="expiry_date" class="form-control" id="expiry_date" value="{{ old('expiry_date', $getRecord->expiry_date) }}" required>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <!-- Expiry Date -->
-                                <div class="form-group mb-3">
-                                    <label>Expiry Date</label>
-                                    <input type="date" name="expiry_date" class="form-control"
-                                           value="{{ $getRecord->expiry_date }}" required>
+                                <div class="row">
+                                    <!-- Quantity -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="quantity" class="form-label fw-medium mb-2">Quantity <span class="text-danger">*</span></label>
+                                            <input type="number" min="1" name="quantity" class="form-control" id="quantity" value="{{ old('quantity', $getRecord->quantity) }}" placeholder="e.g. 100" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Rate -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="rate" class="form-label fw-medium mb-2">Purchase Rate ($) <span class="text-danger">*</span></label>
+                                            <input type="number" step="0.01" min="0" name="rate" class="form-control" id="rate" value="{{ old('rate', $getRecord->rate) }}" placeholder="e.g. 4.50" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- MRP -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="mrp" class="form-label fw-medium mb-2">Selling MRP ($) <span class="text-danger">*</span></label>
+                                            <input type="number" step="0.01" min="0" name="mrp" class="form-control" id="mrp" value="{{ old('mrp', $getRecord->mrp) }}" placeholder="e.g. 7.99" required>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <!-- Quantity -->
-                                <div class="form-group mb-3">
-                                    <label>Quantity</label>
-                                    <input type="number" name="quantity" class="form-control"
-                                           value="{{ $getRecord->quantity }}" required>
+                                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top" style="border-color: var(--bs-border-color) !important;">
+                                    <a href="{{ url('admin/stocks') }}" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Update Stock</button>
                                 </div>
-
-                                <!-- MRP -->
-                                <div class="form-group mb-3">
-                                    <label>MRP</label>
-                                    <input type="number" name="mrp" class="form-control"
-                                           value="{{ $getRecord->mrp }}" required>
-                                </div>
-
-                                <!-- Rate -->
-                                <div class="form-group mb-3">
-                                    <label>Rate (Selling Price)</label>
-                                    <input type="number" name="rate" class="form-control"
-                                           value="{{ $getRecord->rate }}" required>
-                                </div>
-
-                            </div>
-
-                            <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-primary">
-                                    Update Stock
-                                </button>
-                            </div>
-
-                        </form>
-
+                            </form>
+                        </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </section>
-
-</div>
-
+</main>
 @endsection

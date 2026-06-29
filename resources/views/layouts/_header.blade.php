@@ -11,15 +11,15 @@
             </li>
 
             <!-- Pill-shaped rounded search box -->
-            <div class="d-none d-md-flex align-items-center px-3 rounded-pill bg-light border" style="height: 40px; width: 300px; transition: all 0.3s ease; border-color: var(--bs-border-color) !important;">
+            <div class="d-none d-md-flex align-items-center px-3 rounded-pill" style="height: 40px; width: 300px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.04) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important;">
                 <i class="bi bi-search text-muted me-2"></i>
-                <input type="text" class="border-0 bg-transparent text-sm w-100" placeholder="Search medicines, orders..." style="outline: none; font-size: 14px; color: var(--bs-body-color);">
+                <input type="text" class="border-0 bg-transparent text-sm w-100" placeholder="Search medicines, orders..." style="outline: none; font-size: 14px; color: #FFFFFF;">
             </div>
         </div>
 
         <!-- Right Section: Theme, Notifications, Profile -->
         <ul class="navbar-nav align-items-center ms-auto">
-            <!-- Theme Toggle -->
+            <!-- Theme Toggle Button -->
             <li class="nav-item dropdown me-2">
                 <a
                     class="nav-link btn btn-link p-2 rounded-circle hover-bg-light"
@@ -37,12 +37,12 @@
                 <ul
                     class="dropdown-menu dropdown-menu-end border-0 shadow mt-2 rounded-4"
                     aria-labelledby="bd-theme"
-                    style="--bs-dropdown-min-width: 8rem"
+                    style="--bs-dropdown-min-width: 8rem; background: var(--bs-card-bg); border: 1px solid var(--bs-border-color) !important;"
                 >
                     <li>
                         <button
                             type="button"
-                            class="dropdown-item d-flex align-items-center"
+                            class="dropdown-item d-flex align-items-center text-sm"
                             data-bs-theme-value="light"
                             aria-pressed="false"
                         >
@@ -54,7 +54,7 @@
                     <li>
                         <button
                             type="button"
-                            class="dropdown-item d-flex align-items-center"
+                            class="dropdown-item d-flex align-items-center text-sm"
                             data-bs-theme-value="dark"
                             aria-pressed="false"
                         >
@@ -66,7 +66,7 @@
                     <li>
                         <button
                             type="button"
-                            class="dropdown-item d-flex align-items-center"
+                            class="dropdown-item d-flex align-items-center text-sm"
                             data-bs-theme-value="auto"
                             aria-pressed="false"
                         >
@@ -84,16 +84,16 @@
                     <i class="bi bi-bell fs-5"></i>
                     <span class="position-absolute top-1 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="transform: translate(-12px, 8px) !important;"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4">
-                    <span class="dropdown-item dropdown-header fw-bold">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item text-sm">
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4" style="background: var(--bs-card-bg); border: 1px solid var(--bs-border-color) !important;">
+                    <span class="dropdown-item dropdown-header fw-bold text-white">15 Notifications</span>
+                    <div class="dropdown-divider" style="border-top: 1px solid var(--bs-border-color);"></div>
+                    <a href="#" class="dropdown-item text-sm text-white-50">
                         <i class="bi bi-envelope me-2 text-primary"></i> 4 new messages
                     </a>
-                    <a href="#" class="dropdown-item text-sm">
+                    <a href="#" class="dropdown-item text-sm text-white-50">
                         <i class="bi bi-boxes me-2 text-warning"></i> Low stock warning
                     </a>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider" style="border-top: 1px solid var(--bs-border-color);"></div>
                     <a href="#" class="dropdown-item dropdown-footer text-center text-sm text-primary">See All Notifications</a>
                 </div>
             </li>
@@ -105,27 +105,27 @@
                         src="{{ Auth::user()->getProfileImage() }}"
                         class="user-image rounded-circle shadow-sm"
                         alt="User Image"
-                        style="width: 32px; height: 32px; object-fit: cover;"
+                        style="width: 32px; height: 32px; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.15);"
                     />
-                    <span class="d-none d-md-inline ms-2 fw-semibold text-sm">{{ Auth::user()->name }}</span>
+                    <span class="d-none d-md-inline ms-2 fw-semibold text-sm text-white">{{ Auth::user()->name }}</span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4">
+                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4" style="background: var(--bs-card-bg); border: 1px solid var(--bs-border-color) !important;">
                     <!--User Image-->
-                    <li class="user-header text-bg-primary text-center py-4 rounded-top-4">
+                    <li class="user-header text-center py-4 rounded-top-4" style="background: linear-gradient(135deg, rgba(22, 31, 46, 0.95), rgba(17, 24, 39, 0.95)); border-bottom: 1px solid var(--bs-border-color);">
                         <img
                             src="{{ Auth::user()->getProfileImage() }}"
                             class="rounded-circle shadow mb-2"
                             alt="User Image"
-                            style="width: 80px; height: 80px; object-fit: cover;"
+                            style="width: 80px; height: 80px; object-fit: cover; border: 2px solid var(--bs-primary);"
                         />
-                        <p class="mb-0">
+                        <p class="mb-0 text-white">
                             {{ Auth::user()->name }} {{ Auth::user()->last_name }}
                             <small class="d-block text-white-50">{{ Auth::user()->is_role == 1 ? 'Administrator' : 'Pharmacy Staff' }}</small>
                         </p>
                     </li>
                     <!--Menu Footer-->
-                    <li class="user-footer d-flex justify-content-between p-3 bg-light rounded-bottom-4">
-                        <a href="{{ url('admin/my-account') }}" class="btn btn-outline-secondary btn-sm rounded-3">
+                    <li class="user-footer d-flex justify-content-between p-3 rounded-bottom-4" style="background: var(--bs-secondary-bg);">
+                        <a href="{{ url('admin/my-account') }}" class="btn btn-outline-secondary btn-sm rounded-3 text-white border-secondary">
                             <i class="bi bi-person me-1"></i> Profile
                         </a>
                         <a href="{{ url('logout') }}" class="btn btn-outline-danger btn-sm rounded-3">

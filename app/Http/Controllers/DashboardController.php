@@ -22,7 +22,7 @@ class DashboardController extends Controller
     {
         $data['header_title'] = 'Dashboard';
 
-        // Load 8 statistic counts from database
+        // Load 9 statistic counts from database
         $data['totalMedicines'] = MedicinesModel::where('is_deleted', 0)->count();
         $data['totalSuppliers'] = SuppliersModel::where('is_deleted', 0)->count();
         $data['totalCustomers'] = CustomersModel::where('is_deleted', 0)->count();
@@ -30,6 +30,7 @@ class DashboardController extends Controller
         $data['totalSales'] = InvoicesModel::where('is_deleted', 0)->count();
         $data['totalRevenue'] = InvoicesModel::where('is_deleted', 0)->sum('net_total');
         
+        $data['totalStock'] = StockModel::where('is_deleted', 0)->sum('quantity') ?? 0;
         $data['lowStock'] = StockModel::where('is_deleted', 0)->where('quantity', '<', 10)->count();
         $data['expiredMedicines'] = StockModel::where('is_deleted', 0)->where('expiry_date', '<', date('Y-m-d'))->count();
 

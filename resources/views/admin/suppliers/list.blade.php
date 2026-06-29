@@ -1,111 +1,90 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="content-wrapper">
-
-    <!-- Page Header -->
-    <section class="content-header">
+<main class="app-main">
+    <div class="app-content-header">
         <div class="container-fluid">
-
-            <div class="row mb-2">
+            <div class="row align-items-center mb-2">
                 <div class="col-sm-6">
-                    <h1 class="mb-0">Suppliers</h1>
+                    <h3 class="mb-0 fw-bold">Suppliers</h3>
                 </div>
-
                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Suppliers</li>
+                    <ol class="breadcrumb float-sm-end">
+                        <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Suppliers</li>
                     </ol>
                 </div>
             </div>
-
-            <div class="row mb-2">
-                <div class="col-md-12 text-right">
+            <div class="row align-items-center mb-2">
+                <div class="col-md-12 text-end">
                     <a href="{{ url('admin/suppliers/create') }}" class="btn btn-primary">
-                        <i class="bi bi-plus"></i> Add New
+                        <i class="bi bi-plus-lg me-1"></i> Add New Supplier
                     </a>
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
 
-    <!-- Main Content -->
     <section class="content">
-        <div class="container-fluid">
-
+        <div class="container-fluid mt-3 mb-5">
             @include('message')
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card card-primary">
+            <div class="card shadow-sm border-0">
+                <div class="card-header p-4">
+                    <h4 class="card-title fw-bold mb-0 text-white">Supplier Directory</h4>
+                </div>
 
-                        <div class="card-header">
-                            <h3 class="card-title">Supplier List</h3>
-                        </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Supplier Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email Address</th>
+                                    <th>Supplier Address</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                        <div class="card-body">
-
-                            <table class="table table-bordered table-striped">
-                                <thead>
+                            <tbody>
+                                @forelse($getRecord as $value)
                                     <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                        <th style="width: 200px;">Action</th>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td class="fw-bold text-white">{{ $value->name }}</td>
+                                        <td>{{ $value->phone ?? 'N/A' }}</td>
+                                        <td class="text-secondary">{{ $value->email ?? 'N/A' }}</td>
+                                        <td>{{ $value->address ?? 'N/A' }}</td>
+                                        <td class="text-xs text-muted">{{ $value->created_at }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{ url('admin/suppliers/edit/'.$value->id) }}"
+                                                   class="btn btn-outline-primary btn-sm rounded-3 me-1">
+                                                    <i class="bi bi-pencil"></i> Edit
+                                                </a>
+                                                <a href="{{ url('admin/suppliers/delete/'.$value->id) }}"
+                                                   class="btn btn-outline-danger btn-sm rounded-3"
+                                                   onclick="return confirm('Are you sure you want to delete this supplier?');">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </a>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    @forelse($getRecord as $value)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $value->name }}</td>
-                                            <td>{{ $value->phone }}</td>
-                                            <td>{{ $value->email }}</td>
-                                            <td>{{ $value->address }}</td>
-                                            <td>{{ $value->created_at }}</td>
-                                            <td>{{ $value->updated_at }}</td>
-
-                                            <td>
-                                                <a href="{{ url('admin/suppliers/edit/'.$value->id) }}" 
-                                                   class="btn btn-primary btn-sm">
-                                                    Edit
-                                                </a>
-
-                                                <a href="{{ url('admin/suppliers/delete/'.$value->id) }}" 
-                                                   class="btn btn-danger btn-sm">
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8" class="text-center text-danger">
-                                                No Record Found
-                                            </td>
-                                        </tr>
-                                    @endforelse
-
-                                </tbody>
-                            </table>
-
-                        </div>
-
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-danger py-4">
+                                            No Suppliers Found
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
-
-</div>
-
+</main>
 @endsection

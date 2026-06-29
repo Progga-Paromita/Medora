@@ -1,134 +1,174 @@
 <!doctype html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Forgot Password | Pharmacy Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
-
-    <!-- Theme Initialization -->
-    <script>
-      (function() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        let activeTheme = savedTheme;
-        if (savedTheme === 'auto') {
-          activeTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        document.documentElement.setAttribute('data-bs-theme', activeTheme);
-      })();
-    </script>
+    <meta name="color-scheme" content="dark" />
 
     <!-- Fonts and Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}" />
 
     <style>
-      /* Theme styles matching user specifications */
-      [data-bs-theme="light"] {
-        --bg-color: #FFFDF7;
-        --card-bg: #FFFFFF;
-        --text-color: #15171A;
-        --border-color: #E5E7EB;
-        --primary-color: rgb(242, 181, 39);
-        --primary-hover: rgb(220, 160, 20);
-        --input-bg: #FFFFFF;
-        --logo-color: rgb(242, 181, 39);
-      }
-      [data-bs-theme="dark"] {
-        --bg-color: #0B0D12;
-        --card-bg: #1A1D24;
-        --text-color: #F2F3F5;
-        --border-color: #2A2D33;
-        --primary-color: #6E8DF0;
-        --primary-hover: #5A7AE0;
-        --input-bg: #1A1D24;
-        --logo-color: #6E8DF0;
-      }
       body {
-        background-color: var(--bg-color) !important;
-        color: var(--text-color) !important;
-        font-family: 'Source Sans 3', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        background-color: #0B0F19 !important;
+        color: #FFFFFF !important;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
       }
+
+      /* Animated Background Elements */
+      .luxury-bg-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+        overflow: hidden;
+      }
+      .blob {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        filter: blur(140px);
+        opacity: 0.12;
+        animation: float-blob 22s infinite alternate ease-in-out;
+        will-change: transform;
+      }
+      .blob-1 {
+        background: #FACA5A;
+        top: -100px;
+        left: -100px;
+        animation-delay: 0s;
+      }
+      .blob-2 {
+        background: #F2B527;
+        bottom: -150px;
+        right: -100px;
+        animation-delay: 5s;
+      }
+      .blob-3 {
+        background: #FAC446;
+        top: 40%;
+        left: 50%;
+        width: 400px;
+        height: 400px;
+        animation-delay: 10s;
+      }
+      .noise-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+      @keyframes float-blob {
+        0% {
+          transform: translate(0, 0) scale(1) rotate(0deg);
+        }
+        33% {
+          transform: translate(50px, 80px) scale(1.1) rotate(120deg);
+        }
+        66% {
+          transform: translate(-40px, -50px) scale(0.9) rotate(240deg);
+        }
+        100% {
+          transform: translate(0, 0) scale(1) rotate(360deg);
+        }
+      }
+
       .login-box {
         width: 100%;
         max-width: 420px;
         padding: 15px;
+        z-index: 10;
+        animation: scaleIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       }
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
       .card {
-        background-color: var(--card-bg) !important;
-        border: 1px solid var(--border-color) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 16px -6px rgba(0, 0, 0, 0.02) !important;
+        background: rgba(22, 31, 46, 0.6) !important;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
       }
       .form-control {
-        background-color: var(--input-bg) !important;
-        border-color: var(--border-color) !important;
-        color: var(--text-color) !important;
-        border-radius: 8px !important;
-        padding: 10px 14px !important;
+        background-color: rgba(17, 24, 39, 0.6) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+        color: #FFFFFF !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+        transition: all 0.3s ease;
       }
       .form-control:focus {
-        border-color: var(--primary-color) !important;
-        box-shadow: 0 0 0 3px rgba(47, 93, 215, 0.15) !important;
-        background-color: var(--input-bg) !important;
-        color: var(--text-color) !important;
+        border-color: #FACA5A !important;
+        box-shadow: 0 0 0 3px rgba(250, 202, 90, 0.2) !important;
+        background-color: rgba(17, 24, 39, 0.8) !important;
+        color: #FFFFFF !important;
       }
       .input-group-text {
-        background-color: var(--card-bg) !important;
-        border-color: var(--border-color) !important;
-        color: var(--text-color) !important;
-        border-radius: 0 8px 8px 0 !important;
+        background-color: rgba(17, 24, 39, 0.6) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+        color: #C9D1D9 !important;
+        border-radius: 0 12px 12px 0 !important;
       }
       .btn-primary {
-        background-color: var(--primary-color) !important;
-        border-color: var(--primary-color) !important;
-        border-radius: 8px !important;
-        padding: 10px !important;
-        font-weight: 600 !important;
-        transition: all 0.2s ease;
+        background: linear-gradient(135deg, #FACA5A, #FAC446, #F2B527) !important;
+        border: none !important;
+        color: #0B0F19 !important;
+        font-weight: 700 !important;
+        border-radius: 12px !important;
+        padding: 12px !important;
+        box-shadow: 0 4px 15px rgba(250, 202, 90, 0.25) !important;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       }
       .btn-primary:hover {
-        background-color: var(--primary-hover) !important;
-        border-color: var(--primary-hover) !important;
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 8px 25px rgba(250, 202, 90, 0.4) !important;
+        filter: brightness(1.05);
       }
       .login-logo a {
-        color: var(--logo-color) !important;
+        color: #FACA5A !important;
         font-weight: 800;
         letter-spacing: -0.5px;
-      }
-      .theme-btn-float {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--card-bg);
-        border: 1px solid var(--border-color);
-        color: var(--text-color);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-      .theme-btn-float:hover {
-        transform: scale(1.05);
+        text-shadow: 0 0 15px rgba(250, 202, 90, 0.25);
       }
     </style>
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-  <body class="login-page">
-    <!-- Floating Theme Toggle Button -->
-    <button class="theme-btn-float" id="themeToggleBtn" aria-label="Toggle Theme">
-      <i class="bi bi-sun-fill" id="themeIcon"></i>
-    </button>
+  <body>
+    <!-- Live Animated Background -->
+    <div class="luxury-bg-wrapper">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="noise-overlay"></div>
+    </div>
 
     <div class="login-box">
       <div class="login-logo mb-4 text-center">
@@ -141,8 +181,8 @@
         <div class="card-body p-4">
           @include('message')
 
-          <p class="login-box-msg mb-4 text-secondary">Forgot Password</p>
-          <p class="text-sm text-muted text-center mb-4">Enter your registered email below, and we'll send you a secure link to reset your password.</p>
+          <p class="login-box-msg mb-3 text-secondary">Forgot Password</p>
+          <p class="text-sm text-muted text-center mb-4">Enter your registered email address, and we'll transmit a secure reset link.</p>
 
           <form action="{{ url('forgot_post') }}" method="post">
             @csrf
@@ -160,47 +200,14 @@
             </div>
           </form>
 
-          <div class="mt-4 pt-3 border-top text-center">
+          <div class="mt-4 pt-3 border-top text-center" style="border-color: rgba(255, 255, 255, 0.08) !important;">
             <p class="mb-0 text-sm text-secondary">
-              Remembered your credentials? <a href="{{ url('/') }}" class="text-decoration-none text-primary fw-bold">Login</a>
+              Go back to <a href="{{ url('/') }}" class="text-decoration-none fw-bold" style="color: #FACA5A;">Login</a>
             </p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Theme Switcher Script -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const html = document.documentElement;
-        const toggleBtn = document.getElementById('themeToggleBtn');
-        const themeIcon = document.getElementById('themeIcon');
-        
-        const updateIcon = (theme) => {
-          if (theme === 'dark') {
-            themeIcon.className = 'bi bi-moon-fill';
-          } else {
-            themeIcon.className = 'bi bi-sun-fill';
-          }
-        }
-
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        let activeTheme = savedTheme;
-        if (savedTheme === 'auto') {
-          activeTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        html.setAttribute('data-bs-theme', activeTheme);
-        updateIcon(activeTheme);
-
-        toggleBtn.addEventListener('click', () => {
-          const currentTheme = html.getAttribute('data-bs-theme');
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          html.setAttribute('data-bs-theme', newTheme);
-          localStorage.setItem('theme', newTheme);
-          updateIcon(newTheme);
-        });
-      });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
   <!--end::Body-->

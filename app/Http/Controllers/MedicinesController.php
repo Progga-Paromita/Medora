@@ -51,6 +51,12 @@ class MedicinesController extends Controller
         $save->packaging = trim($request->packaging);
         $save->generic_name = trim($request->generic_name);
         $save->supplier_id = trim($request->supplier_id);
+        
+        $save->strength = trim($request->strength);
+        $save->category = trim($request->category);
+        $save->sku = trim($request->sku);
+        $save->temperature_control = trim($request->temperature_control);
+        $save->prescription_required = trim($request->prescription_required);
 
         $save->save();
 
@@ -95,6 +101,12 @@ public function update(Request $request, $id)
     $medicines->packaging = trim($request->packaging);
     $medicines->generic_name = trim($request->generic_name);
     $medicines->supplier_id = trim($request->supplier_id);
+    
+    $medicines->strength = trim($request->strength);
+    $medicines->category = trim($request->category);
+    $medicines->sku = trim($request->sku);
+    $medicines->temperature_control = trim($request->temperature_control);
+    $medicines->prescription_required = trim($request->prescription_required);
 
     $medicines->save();
 
