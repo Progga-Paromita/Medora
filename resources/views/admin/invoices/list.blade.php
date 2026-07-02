@@ -39,7 +39,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Invoice Number</th>
                                     <th>Customer / Patient</th>
                                     <th>Invoice Date</th>
@@ -55,7 +55,7 @@
                             <tbody>
                                 @forelse ($getRecord as $value)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+
                                         <td class="fw-bold text-white">{{ $value->invoice_number }}</td>
                                         <td>
                                             {{ optional($value->getCustomerName)->name ?? 'N/A' }}

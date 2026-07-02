@@ -39,7 +39,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Medicine Name</th>
                                     <th>Batch ID</th>
                                     <th>Expiry Date</th>
@@ -55,7 +55,7 @@
                             <tbody>
                                 @forelse ($getRecord as $value)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+
                                         <td class="fw-bold text-white">
                                             {{ optional($value->getMedicine)->name ?? 'N/A' }}
                                             <small class="d-block text-muted">{{ optional($value->getMedicine)->generic_name }}</small>

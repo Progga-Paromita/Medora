@@ -39,7 +39,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Supplier</th>
                                     <th>Invoice Number</th>
                                     <th>Voucher Number</th>
@@ -54,7 +54,7 @@
                             <tbody>
                                 @forelse($getPurchases as $purchase)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+
                                         <td class="fw-bold text-white">{{ optional($purchase->getSupplierName)->name ?? 'N/A' }}</td>
                                         <td>{{ optional($purchase->getInvoiceNo)->invoice_number ?? 'N/A' }}</td>
                                         <td>{{ $purchase->voucher_number ?? 'N/A' }}</td>

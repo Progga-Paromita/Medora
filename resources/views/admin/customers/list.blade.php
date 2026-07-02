@@ -39,7 +39,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Customer Name</th>
                                     <th>Phone Number</th>
                                     <th>Email Address</th>
@@ -54,7 +54,7 @@
                             <tbody>
                                 @forelse($customers as $value)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+
                                         <td class="fw-bold text-white">{{ $value->name }}</td>
                                         <td>{{ $value->phone ?? 'N/A' }}</td>
                                         <td class="text-secondary">{{ $value->email ?? 'N/A' }}</td>

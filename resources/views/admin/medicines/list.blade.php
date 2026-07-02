@@ -39,7 +39,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Image</th>
                                     <th>SKU</th>
                                     <th>Medicine Name</th>
@@ -56,7 +56,7 @@
                             <tbody>
                                 @forelse($getRecord as $value)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+
                                         <td>
                                             <img src="{{ $value->getProfileImage() }}" alt="label"
                                                  class="rounded-circle border" style="width:45px; height:45px; object-fit: cover;">
