@@ -49,27 +49,6 @@ class AuthTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_inactive_user_cannot_login()
-    {
-        User::create([
-            'name' => 'Test',
-            'last_name' => 'Inactive',
-            'email' => 'inactive@example.com',
-            'password' => bcrypt('password123'),
-            'is_role' => 2,
-            'status' => 0, // Inactive
-            'is_deleted' => 0,
-        ]);
-
-        $response = $this->post('login_post', [
-            'email' => 'inactive@example.com',
-            'password' => 'password123',
-        ]);
-
-        $response->assertRedirect('/');
-        $response->assertSessionHas('error', 'This account is inactive. Please contact admin.');
-    }
-
     public function test_deleted_user_cannot_login()
     {
         User::create([
@@ -111,5 +90,21 @@ class AuthTest extends TestCase
 
         $response->assertRedirect('admin/dashboard');
         $response->assertSessionHas('error', 'Access Denied: Admin privileges required.');
+    }
+
+    public function test_dashboard_page_loads_successfully()
+    {
+        $user = User::create([
+            'name' => 'Test',
+            'last_name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password123'),
+            'is_role' => 1,
+            'status' => 1,
+            'is_deleted' => 0,
+        ]);
+
+        $response = $this->actingAs($user)->get('admin/dashboard');
+        $response->assertStatus(200);
     }
 }

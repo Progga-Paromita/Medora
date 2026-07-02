@@ -31,7 +31,7 @@
 
             <!-- Statistics Cards -->
             <div class="row mb-4">
-                <div class="col-xl-2 col-md-4 col-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <div class="card border-0 shadow-sm h-100 text-center" style="background: rgba(250, 202, 90, 0.1);">
                         <div class="card-body p-3">
                             <i class="bi bi-people-fill text-primary fs-3 mb-2 d-block"></i>
@@ -40,25 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-2 col-md-4 col-6 mb-3">
-                    <div class="card border-0 shadow-sm h-100 text-center" style="background: rgba(34, 197, 94, 0.1);">
-                        <div class="card-body p-3">
-                            <i class="bi bi-patch-check-fill text-success fs-3 mb-2 d-block"></i>
-                            <span class="text-secondary small fw-medium text-uppercase">Active</span>
-                            <h3 class="mb-0 fw-bold mt-1 text-success">{{ $activeUsers }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-6 mb-3">
-                    <div class="card border-0 shadow-sm h-100 text-center" style="background: rgba(239, 68, 68, 0.1);">
-                        <div class="card-body p-3">
-                            <i class="bi bi-slash-circle text-danger fs-3 mb-2 d-block"></i>
-                            <span class="text-secondary small fw-medium text-uppercase">Inactive</span>
-                            <h3 class="mb-0 fw-bold mt-1 text-danger">{{ $inactiveUsers }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 col-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <div class="card border-0 shadow-sm h-100 text-center" style="background: rgba(13, 110, 253, 0.1);">
                         <div class="card-body p-3">
                             <i class="bi bi-shield-lock-fill text-info fs-3 mb-2 d-block"></i>
@@ -67,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-md-6 col-12 mb-3">
+                <div class="col-md-4 mb-3">
                     <div class="card border-0 shadow-sm h-100 text-center" style="background: rgba(108, 117, 125, 0.1);">
                         <div class="card-body p-3">
                             <i class="bi bi-person-badge text-secondary fs-3 mb-2 d-block"></i>
@@ -83,7 +65,7 @@
                 <div class="card-body p-4">
                     <form action="" method="GET" class="row g-3">
                         <!-- Search text -->
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-md-6">
                             <label for="search" class="form-label small fw-medium">Search Keyword</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-search"></i></span>
@@ -93,7 +75,7 @@
                         </div>
 
                         <!-- Role -->
-                        <div class="col-lg-2 col-md-3">
+                        <div class="col-md-3">
                             <label for="role" class="form-label small fw-medium">Role</label>
                             <select name="role" id="role" class="form-select">
                                 <option value="">All Roles</option>
@@ -102,29 +84,8 @@
                             </select>
                         </div>
 
-                        <!-- Status -->
-                        <div class="col-lg-2 col-md-3">
-                            <label for="status" class="form-label small fw-medium">Status</label>
-                            <select name="status" id="status" class="form-select">
-                                <option value="">All Statuses</option>
-                                <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Inactive</option>
-                                <option value="deleted" {{ request('status') === 'deleted' ? 'selected' : '' }}>Deleted (Soft Deleted)</option>
-                            </select>
-                        </div>
-
-                        <!-- Date range -->
-                        <div class="col-lg-2 col-md-4">
-                            <label for="start_date" class="form-label small fw-medium">Start Date</label>
-                            <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
-                        </div>
-                        <div class="col-lg-2 col-md-4">
-                            <label for="end_date" class="form-label small fw-medium">End Date</label>
-                            <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request('end_date') }}">
-                        </div>
-
                         <!-- Page limit -->
-                        <div class="col-lg-1 col-md-4">
+                        <div class="col-md-3">
                             <label for="limit" class="form-label small fw-medium">Show</label>
                             <select name="limit" id="limit" class="form-select">
                                 <option value="10" {{ request('limit') == '10' ? 'selected' : '' }}>10</option>
@@ -162,7 +123,7 @@
                         <table class="table align-middle table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>Photo</th>
                                     <th>
                                         <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'name', 'sort_order' => request('sort_by') == 'name' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
@@ -195,17 +156,6 @@
                                             @endif
                                         </a>
                                     </th>
-                                    <th>Status</th>
-                                    <th>
-                                        <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'created_at', 'sort_order' => request('sort_by') == 'created_at' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
-                                            Created Date
-                                            @if(request('sort_by', 'created_at') == 'created_at')
-                                                <i class="bi bi-sort-numeric-{{ request('sort_order', 'desc') == 'desc' ? 'down' : 'up' }} ms-1"></i>
-                                            @else
-                                                <i class="bi bi-arrow-down-up text-muted ms-1" style="font-size: 0.8rem;"></i>
-                                            @endif
-                                        </a>
-                                    </th>
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
@@ -219,7 +169,12 @@
                                                  class="rounded-circle border border-2 shadow-sm" style="width:45px; height:45px; object-fit: cover;">
                                         </td>
                                         <td>
-                                            <div class="fw-bold text-white">{{ $value->name }} {{ $value->last_name }}</div>
+                                            <div class="fw-bold text-white">
+                                                {{ $value->name }} {{ $value->last_name }}
+                                                @if($value->is_deleted == 1)
+                                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle ms-1 px-1.5 py-0.5 rounded-pill small" style="font-size: 0.75rem;">Deleted</span>
+                                                @endif
+                                            </div>
                                         </td>
                                         <td>{{ $value->phone ?? 'N/A' }}</td>
                                         <td class="text-secondary">{{ $value->email }}</td>
@@ -230,70 +185,31 @@
                                                 <span class="badge bg-info-subtle text-info border border-info-subtle px-2.5 py-1 rounded-pill small">Staff</span>
                                             @endif
                                         </td>
-                                        <td>
-                                            @if($value->is_deleted == 1)
-                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2.5 py-1 rounded-pill small">Deleted</span>
-                                            @elseif($value->status == 1)
-                                                <a href="{{ url('admin/users/status/'.$value->id) }}" class="text-decoration-none">
-                                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill small hover-badge">Active</span>
-                                                </a>
-                                            @else
-                                                <a href="{{ url('admin/users/status/'.$value->id) }}" class="text-decoration-none">
-                                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1 rounded-pill small hover-badge">Inactive</span>
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td class="text-xs text-muted">{{ $value->created_at->format('M d, Y h:i A') }}</td>
                                         <td class="text-end">
-                                            <div class="dropdown">
-                                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1 dropdown-toggle" 
-                                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Manage
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3">
-                                                    @if($value->is_deleted == 0)
-                                                        <li>
-                                                            <a href="{{ url('admin/users/show/'.$value->id) }}" class="dropdown-item py-2">
-                                                                <i class="bi bi-eye me-2 text-info"></i> View Details
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('admin/users/edit/'.$value->id) }}" class="dropdown-item py-2">
-                                                                <i class="bi bi-pencil me-2 text-primary"></i> Edit Account
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <!-- Reset Password Form Hook -->
-                                                            <form id="reset-password-form-{{ $value->id }}" action="{{ url('admin/users/reset-password/'.$value->id) }}" method="POST" style="display: none;">
-                                                                @csrf
-                                                            </form>
-                                                            <a href="#" class="dropdown-item py-2" 
-                                                               onclick="if(confirm('Are you sure you want to reset the password for this user? This will generate a new random password and send it to them.')) { document.getElementById('reset-password-form-{{ $value->id }}').submit(); } event.preventDefault();">
-                                                                <i class="bi bi-shield-lock me-2 text-warning"></i> Reset Password
-                                                            </a>
-                                                        </li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li>
-                                                            <a href="{{ url('admin/users/delete/'.$value->id) }}" class="dropdown-item py-2 text-danger"
-                                                               onclick="return confirm('Are you sure you want to delete this user? This will soft delete their record.');">
-                                                                <i class="bi bi-trash me-2"></i> Soft Delete
-                                                            </a>
-                                                        </li>
-                                                    @else
-                                                        <li>
-                                                            <a href="{{ url('admin/users/restore/'.$value->id) }}" class="dropdown-item py-2 text-success"
-                                                               onclick="return confirm('Are you sure you want to restore this soft-deleted user account?');">
-                                                                <i class="bi bi-arrow-counterclockwise me-2"></i> Restore User
-                                                            </a>
-                                                        </li>
-                                                    @endif
-                                                </ul>
+                                            <div class="d-flex gap-1 justify-content-end">
+                                                @if($value->is_deleted == 0)
+                                                    <a href="{{ url('admin/users/show/'.$value->id) }}" class="btn btn-outline-info btn-sm rounded-3" title="View Details">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                    <a href="{{ url('admin/users/edit/'.$value->id) }}" class="btn btn-outline-primary btn-sm rounded-3" title="Edit Account">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a href="{{ url('admin/users/delete/'.$value->id) }}" class="btn btn-outline-danger btn-sm rounded-3" title="Delete"
+                                                        onclick="return confirm('Are you sure you want to delete this user? This will soft delete their record.');">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ url('admin/users/restore/'.$value->id) }}" class="btn btn-outline-success btn-sm rounded-3" title="Restore"
+                                                       onclick="return confirm('Are you sure you want to restore this soft-deleted user account?');">
+                                                        <i class="bi bi-arrow-counterclockwise"></i> Restore
+                                                    </a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="9" class="text-center text-danger py-5">
+                                        <td colspan="7" class="text-center text-danger py-5">
                                             <i class="bi bi-exclamation-circle fs-3 mb-2 d-block"></i>
                                             No Users Found
                                         </td>

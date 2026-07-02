@@ -88,29 +88,18 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <!-- Role -->
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="is_role" class="form-label fw-medium mb-2">System Role <span class="text-danger">*</span></label>
-                                            <select name="is_role" id="is_role" class="form-select" required>
-                                                <option value="2" {{ $getRecord->is_role == 2 ? 'selected' : '' }}>Pharmacy Staff</option>
-                                                <option value="1" {{ $getRecord->is_role == 1 ? 'selected' : '' }}>Administrator</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Status -->
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="status" class="form-label fw-medium mb-2">Account Status <span class="text-danger">*</span></label>
-                                            <select name="status" id="status" class="form-select" required>
-                                                <option value="1" {{ $getRecord->status == 1 ? 'selected' : '' }}>Active</option>
-                                                <option value="0" {{ $getRecord->status == 0 ? 'selected' : '' }}>Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                 <div class="row">
+                                     <!-- Role -->
+                                     <div class="col-md-6 mb-3">
+                                         <div class="form-group">
+                                             <label for="is_role" class="form-label fw-medium mb-2">System Role <span class="text-danger">*</span></label>
+                                             <select name="is_role" id="is_role" class="form-select" required>
+                                                 <option value="2" {{ $getRecord->is_role == 2 ? 'selected' : '' }}>Pharmacy Staff</option>
+                                                 <option value="1" {{ $getRecord->is_role == 1 ? 'selected' : '' }}>Administrator</option>
+                                             </select>
+                                         </div>
+                                     </div>
+                                 </div>
 
                                 <!-- Image Upload -->
                                 <div class="row mt-2">
@@ -140,24 +129,12 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-between mt-4 pt-3 border-top" style="border-color: var(--bs-border-color) !important;">
-                                    <div>
-                                        <!-- Add link/button to trigger Password Reset action -->
-                                        <button type="button" class="btn btn-outline-warning"
-                                                onclick="if(confirm('Are you sure you want to reset this user\'s password? This will generate a new randomized password and send it.')) { document.getElementById('reset-password-form').submit(); }">
-                                            <i class="bi bi-shield-lock-fill me-1"></i> Reset Password
-                                        </button>
-                                    </div>
+                                <div class="d-flex justify-content-end mt-4 pt-3 border-top" style="border-color: var(--bs-border-color) !important;">
                                     <div class="d-flex gap-2">
                                         <a href="{{ url('admin/users') }}" class="btn btn-secondary">Cancel</a>
                                         <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i> Update User</button>
                                     </div>
                                 </div>
-                            </form>
-
-                            <!-- Hidden Password Reset Form -->
-                            <form id="reset-password-form" action="{{ url('admin/users/reset-password/'.$getRecord->id) }}" method="POST" style="display: none;">
-                                @csrf
                             </form>
                         </div>
                     </div>

@@ -52,8 +52,8 @@
                                             <i class="bi bi-envelope fs-4"></i>
                                         </div>
                                         <div>
-                                            <span class="text-muted small d-block">Email Address</span>
-                                            <strong class="text-white">{{ $user->email }}</strong>
+                                            <strong class="text-white small d-block">Email Address</strong>
+                                            <span class="text-secondary">{{ $user->email }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -63,38 +63,20 @@
                                             <i class="bi bi-telephone fs-4"></i>
                                         </div>
                                         <div>
-                                            <span class="text-muted small d-block">Phone Number</span>
-                                            <strong class="text-white">{{ $user->phone ?? 'N/A' }}</strong>
+                                            <strong class="text-white small d-block">Phone Number</strong>
+                                            <span class="text-secondary">{{ $user->phone ?? 'N/A' }}</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Status Info Section -->
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-secondary-subtle p-3 rounded-3 me-3 text-primary">
-                                            <i class="bi bi-shield-check fs-4"></i>
-                                        </div>
-                                        <div>
-                                            <span class="text-muted small d-block">Account Status</span>
-                                            @if($user->is_deleted == 1)
-                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-0.5 rounded-pill">Deleted (Soft)</span>
-                                            @elseif($user->status == 1)
-                                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill">Active</span>
-                                            @else
-                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-0.5 rounded-pill">Inactive</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center">
                                         <div class="bg-secondary-subtle p-3 rounded-3 me-3 text-primary">
                                             <i class="bi bi-calendar-event fs-4"></i>
                                         </div>
                                         <div>
-                                            <span class="text-muted small d-block">Registered Date</span>
-                                            <strong class="text-white">{{ $user->created_at->format('M d, Y h:i A') }}</strong>
+                                            <strong class="text-white small d-block">Registered Date</strong>
+                                            <span class="text-secondary">{{ $user->created_at->format('M d, Y h:i A') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -105,8 +87,8 @@
                                             <i class="bi bi-clock-history fs-4"></i>
                                         </div>
                                         <div>
-                                            <span class="text-muted small d-block">Last Profile Update</span>
-                                            <strong class="text-white">{{ $user->updated_at->format('M d, Y h:i A') }}</strong>
+                                            <strong class="text-white small d-block">Last Profile Update</strong>
+                                            <span class="text-secondary">{{ $user->updated_at->format('M d, Y h:i A') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -119,21 +101,12 @@
                                 </a>
                                 @if($user->is_deleted == 0)
                                     <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-warning"
-                                                onclick="if(confirm('Are you sure you want to reset this user\'s password?')) { document.getElementById('reset-password-form-show').submit(); }">
-                                            <i class="bi bi-shield-lock-fill me-1"></i> Reset Password
-                                        </button>
                                         <a href="{{ url('admin/users/edit/'.$user->id) }}" class="btn btn-primary">
                                             <i class="bi bi-pencil-fill me-1"></i> Edit Account
                                         </a>
                                     </div>
                                 @endif
                             </div>
-
-                            <!-- Hidden Password Reset Form -->
-                            <form id="reset-password-form-show" action="{{ url('admin/users/reset-password/'.$user->id) }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
                         </div>
                     </div>
                 </div>

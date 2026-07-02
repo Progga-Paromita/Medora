@@ -39,10 +39,6 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'This account has been deleted.');
         }
 
-        if ($user->status != 1) {
-            return redirect()->back()->with('error', 'This account is inactive. Please contact admin.');
-        }
-
         // Attempt login
         if (Auth::attempt([
             'email' => $request->email,
@@ -78,7 +74,6 @@ class AuthController extends Controller
         // Check if active & non-deleted user exists with this email
         $user = User::where('email', $request->email)
                     ->where('is_deleted', 0)
-                    ->where('status', 1)
                     ->first();
 
         if ($user) {
@@ -99,7 +94,6 @@ class AuthController extends Controller
     {
         $user = User::where('remember_token', $token)
                     ->where('is_deleted', 0)
-                    ->where('status', 1)
                     ->first();
 
         if ($user) {
@@ -117,7 +111,6 @@ class AuthController extends Controller
 
         $user = User::where('remember_token', $token)
                     ->where('is_deleted', 0)
-                    ->where('status', 1)
                     ->first();
 
         if ($user) {

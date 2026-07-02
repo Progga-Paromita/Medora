@@ -86,17 +86,9 @@ class User extends Authenticatable
             $query->where('users.is_role', '=', $request->get('role'));
         }
 
-        // Filter by Status (Active/Inactive)
-        if ($request && $request->get('status') !== null && $request->get('status') !== '' && $request->get('status') !== 'deleted') {
-            $query->where('users.status', '=', $request->get('status'));
-        }
-
         // Filter by Registration Date
-        if ($request && !empty($request->get('start_date'))) {
-            $query->whereDate('users.created_at', '>=', $request->get('start_date'));
-        }
-        if ($request && !empty($request->get('end_date'))) {
-            $query->whereDate('users.created_at', '<=', $request->get('end_date'));
+        if ($request && !empty($request->get('date'))) {
+            $query->whereDate('users.created_at', '=', $request->get('date'));
         }
 
         // Sorting

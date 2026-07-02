@@ -16,8 +16,6 @@ class UserController extends Controller
 
         // Statistics for directory dashboard
         $data['totalUsers'] = User::where('is_deleted', 0)->count();
-        $data['activeUsers'] = User::where('is_deleted', 0)->where('status', 1)->count();
-        $data['inactiveUsers'] = User::where('is_deleted', 0)->where('status', 0)->count();
         $data['adminCount'] = User::where('is_deleted', 0)->where('is_role', 1)->count();
         $data['staffCount'] = User::where('is_deleted', 0)->where('is_role', 2)->count();
 
@@ -40,7 +38,6 @@ class UserController extends Controller
             'phone' => 'required|numeric|digits_between:7,15',
             'password' => 'required|string|min:6|confirmed',
             'is_role' => 'required|in:1,2',
-            'status' => 'required|in:0,1',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -65,7 +62,7 @@ class UserController extends Controller
         $user->remember_token = Str::random(60);
         $user->phone = trim($request->phone);
         $user->is_role = $request->is_role;
-        $user->status = $request->status;
+        $user->status = 1; // Default to active
 
         $user->save();
 
@@ -99,7 +96,6 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|numeric|digits_between:7,15',
             'is_role' => 'required|in:1,2',
-            'status' => 'required|in:0,1',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -126,7 +122,6 @@ class UserController extends Controller
         $user->email = trim($request->email);
         $user->phone = trim($request->phone);
         $user->is_role = trim($request->is_role);
-        $user->status = trim($request->status);
 
         $user->save();
 
@@ -149,44 +144,5 @@ class UserController extends Controller
         $user->save();
 
         return redirect('admin/users')->with('success', 'User restored successfully');
-    }
-
-    public function toggleStatus($id)
-    {
-        $user = User::findOrFail($id);
-        $user->status = ($user->status == 1) ? 0 : 1;
-        $user->save();
-
-        $statusStr = ($user->status == 1) ? 'activated' : 'deactivated';
-        return redirect()->back()->with('success', 'User has been ' . $statusStr . ' successfully');
-    }
-
-    public function resetPasswordAction(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-
-        // Generate dynamic 8-character human-readable password
-        $newPassword = 'Medora' . rand(100, 999) . '!';
-        $user->password = Hash::make($newPassword);
-        $user->remember_token = Str::random(60);
-        $user->save();
-
-        // Notify user via email
-        try {
-            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\UserPasswordResetMail($user, $newPassword));
-            $mailSuccess = true;
-        } catch (\Exception $e) {
-            $mailSuccess = false;
-        }
-
-        $msg = 'Password reset successfully for ' . $user->name . '. ';
-        $msg .= 'New password: <strong>' . $newPassword . '</strong>. ';
-        if ($mailSuccess) {
-            $msg .= 'Notification email sent to ' . $user->email . '.';
-        } else {
-            $msg .= '<span class="text-danger">Failed to send notification email (check mail configs), please copy the password manually.</span>';
-        }
-
-        return redirect()->back()->with('success_html', $msg);
     }
 }

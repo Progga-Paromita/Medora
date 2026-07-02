@@ -126,17 +126,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!-- Status -->
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="status" class="form-label fw-medium mb-2">Account Status <span class="text-danger">*</span></label>
-                                            <select name="status" id="status" class="form-select @error('status') is-invalid @enderror" required>
-                                                <option value="1" {{ old('status') === '1' ? 'selected' : '' }}>Active</option>
-                                                <option value="0" {{ old('status') === '0' ? 'selected' : '' }}>Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <!-- Image Upload -->
