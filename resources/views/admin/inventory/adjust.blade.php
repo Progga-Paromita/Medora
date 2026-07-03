@@ -138,7 +138,7 @@
                     data.forEach(batch => {
                         const opt = document.createElement('option');
                         opt.value = batch.id;
-                        opt.textContent = `Batch: ${batch.batch_id} (Avail Qty: ${batch.quantity}) | Expiry: ${batch.expiry_date} | MRP: $${batch.mrp.toFixed(2)}`;
+                        opt.textContent = `Batch: ${batch.batch_id} (Avail Qty: ${batch.quantity}) | Expiry: ${batch.expiry_date} | MRP: ${batch.mrp.toFixed(2)}`;
                         opt.dataset.qty = batch.quantity;
                         stockSelect.appendChild(opt);
                     });

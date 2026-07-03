@@ -96,7 +96,7 @@
                         <table class="table align-middle table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>
                                         <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'medicine', 'sort_order' => request('sort_by') == 'medicine' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
                                             Medicine Product
@@ -191,8 +191,8 @@
                                         <td>{{ $value->packaging }}</td>
                                         <td><span class="badge bg-secondary">{{ $value->batch_id }}</span></td>
                                         <td class="fw-semibold text-white">{{ $value->quantity }} units</td>
-                                        <td>${{ number_format($value->rate, 2) }}</td>
-                                        <td class="fw-bold text-success">${{ number_format($value->mrp, 2) }}</td>
+                                        <td>{{ number_format($value->rate, 2) }}</td>
+                                        <td class="fw-bold text-success">{{ number_format($value->mrp, 2) }}</td>
                                         <td>
                                             {{ date('M d, Y', strtotime($value->expiry_date)) }}
                                             @if($expiry >= $today && $daysLeft <= 30)

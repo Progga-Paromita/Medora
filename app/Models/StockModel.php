@@ -53,9 +53,16 @@ class StockModel extends Model
             }
         }
 
-        // Filter by Low Stock
-        if ($request && $request->get('low_stock') === '1') {
-            $query->where('stock.quantity', '<', 10);
+        // Filter by Quantity status (low, mid, high)
+        if ($request && !empty($request->get('low_stock'))) {
+            $qtyFilter = $request->get('low_stock');
+            if ($qtyFilter === 'low') {
+                $query->where('stock.quantity', '<', 10);
+            } elseif ($qtyFilter === 'mid') {
+                $query->whereBetween('stock.quantity', [10, 100]);
+            } elseif ($qtyFilter === 'high') {
+                $query->where('stock.quantity', '>', 100);
+            }
         }
 
         // Preserved sorting

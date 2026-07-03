@@ -42,40 +42,40 @@
                             <h5 class="fw-bold mb-3 text-white border-bottom pb-2">Product Specifications</h5>
                             <div class="row g-4 mb-4">
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Generic Name</span>
-                                    <strong class="text-white">{{ $medicine->generic_name }}</strong>
+                                    <strong class="text-white small d-block">Generic Name</strong>
+                                    <span class="text-secondary">{{ $medicine->generic_name }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Strength / Dosage</span>
-                                    <strong class="text-white">{{ $medicine->strength ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Strength / Dosage</strong>
+                                    <span class="text-secondary">{{ $medicine->strength ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">SKU / Drug Code</span>
-                                    <strong class="text-white">{{ $medicine->sku ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">SKU / Drug Code</strong>
+                                    <span class="text-secondary">{{ $medicine->sku ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Storage Temperature</span>
-                                    <strong class="text-white">{{ $medicine->temperature_control ?? 'Room Temp' }}</strong>
+                                    <strong class="text-white small d-block">Storage Temperature</strong>
+                                    <span class="text-secondary">{{ $medicine->temperature_control ?? 'Room Temp' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Rx/OTC status</span>
+                                    <strong class="text-white small d-block">Rx/OTC status</strong>
                                     @if($medicine->prescription_required)
-                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-0.5 rounded-pill">Rx Only</span>
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-0.5 rounded-pill mt-1">Rx Only</span>
                                     @else
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill">OTC Product</span>
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill mt-1">OTC Product</span>
                                     @endif
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Linked Supplier</span>
-                                    <strong class="text-white text-secondary">{{ optional($medicine->getSupplierName)->name ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Linked Supplier</strong>
+                                    <span class="text-secondary">{{ optional($medicine->getSupplierName)->name ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Added On</span>
-                                    <span class="text-white">{{ $medicine->created_at->format('M d, Y h:i A') }}</span>
+                                    <strong class="text-white small d-block">Added On</strong>
+                                    <span class="text-secondary">{{ $medicine->created_at->format('M d, Y h:i A') }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Last Updated</span>
-                                    <span class="text-white">{{ $medicine->updated_at->format('M d, Y h:i A') }}</span>
+                                    <strong class="text-white small d-block">Last Updated</strong>
+                                    <span class="text-secondary">{{ $medicine->updated_at->format('M d, Y h:i A') }}</span>
                                 </div>
                             </div>
 

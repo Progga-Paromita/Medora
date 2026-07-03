@@ -35,7 +35,7 @@
                     <form action="" method="GET" class="row g-3">
                         <!-- Search Box -->
                         <div class="col-lg-3 col-md-6">
-                            <label for="search" class="form-label small fw-medium">Search Medicine / Batch</label>
+                            <label for="search" class="form-label small fw-medium">Search</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-search"></i></span>
                                 <input type="text" name="search" id="search" class="form-control" 
@@ -66,12 +66,14 @@
                             </select>
                         </div>
 
-                        <!-- Low Stock Toggle -->
+                        <!-- Quantity Filter -->
                         <div class="col-lg-2 col-md-4 col-sm-6">
-                            <label for="low_stock" class="form-label small fw-medium">Quantity status</label>
+                            <label for="low_stock" class="form-label small fw-medium">Quantity</label>
                             <select name="low_stock" id="low_stock" class="form-select">
                                 <option value="">All Quantities</option>
-                                <option value="1" {{ request('low_stock') === '1' ? 'selected' : '' }}>Low Stock (< 10 units)</option>
+                                <option value="low" {{ request('low_stock') === 'low' ? 'selected' : '' }}>Low Stock (< 10)</option>
+                                <option value="mid" {{ request('low_stock') === 'mid' ? 'selected' : '' }}>Medium Stock (10 - 100)</option>
+                                <option value="high" {{ request('low_stock') === 'high' ? 'selected' : '' }}>High Stock (> 100)</option>
                             </select>
                         </div>
 
@@ -116,7 +118,7 @@
                         <table class="table align-middle table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>
                                         <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'medicine', 'sort_order' => request('sort_by') == 'medicine' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
                                             Medicine Name
@@ -138,16 +140,6 @@
                                         </a>
                                     </th>
                                     <th>
-                                        <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'expiry', 'sort_order' => request('sort_by') == 'expiry' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
-                                            Expiry Date
-                                            @if(request('sort_by') == 'expiry')
-                                                <i class="bi bi-sort-numeric-{{ request('sort_order') == 'asc' ? 'down' : 'up' }} ms-1"></i>
-                                            @else
-                                                <i class="bi bi-arrow-down-up text-muted ms-1" style="font-size: 0.8rem;"></i>
-                                            @endif
-                                        </a>
-                                    </th>
-                                    <th>
                                         <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'quantity', 'sort_order' => request('sort_by') == 'quantity' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
                                             Available Qty
                                             @if(request('sort_by') == 'quantity')
@@ -157,28 +149,7 @@
                                             @endif
                                         </a>
                                     </th>
-                                    <th>
-                                        <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'mrp', 'sort_order' => request('sort_by') == 'mrp' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
-                                            Selling MRP
-                                            @if(request('sort_by') == 'mrp')
-                                                <i class="bi bi-sort-numeric-{{ request('sort_order') == 'asc' ? 'down' : 'up' }} ms-1"></i>
-                                            @else
-                                                <i class="bi bi-arrow-down-up text-muted ms-1" style="font-size: 0.8rem;"></i>
-                                            @endif
-                                        </a>
-                                    </th>
-                                    <th>
-                                        <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'rate', 'sort_order' => request('sort_by') == 'rate' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
-                                            Purchase Rate
-                                            @if(request('sort_by') == 'rate')
-                                                <i class="bi bi-sort-numeric-{{ request('sort_order') == 'asc' ? 'down' : 'up' }} ms-1"></i>
-                                            @else
-                                                <i class="bi bi-arrow-down-up text-muted ms-1" style="font-size: 0.8rem;"></i>
-                                            @endif
-                                        </a>
-                                    </th>
                                     <th>Status</th>
-                                    <th>Created Date</th>
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
@@ -193,18 +164,7 @@
                                             <small class="d-block text-secondary">{{ optional($value->getMedicine)->generic_name }}</small>
                                         </td>
                                         <td class="fw-medium text-warning">{{ $value->batch_id }}</td>
-                                        <td>
-                                            @if($value->expiry_date < date('Y-m-d'))
-                                                <span class="text-danger fw-semibold"><i class="bi bi-calendar-x-fill me-1"></i>{{ date('M d, Y', strtotime($value->expiry_date)) }} (Expired)</span>
-                                            @elseif($value->expiry_date <= date('Y-m-d', strtotime('+90 days')))
-                                                <span class="text-warning fw-semibold"><i class="bi bi-exclamation-triangle-fill me-1"></i>{{ date('M d, Y', strtotime($value->expiry_date)) }} (Near Expiry)</span>
-                                            @else
-                                                <span class="text-success"><i class="bi bi-calendar-check-fill me-1"></i>{{ date('M d, Y', strtotime($value->expiry_date)) }}</span>
-                                            @endif
-                                        </td>
                                         <td class="fw-bold fs-6">{{ $value->quantity }}</td>
-                                        <td class="fw-medium text-success">${{ number_format($value->mrp, 2) }}</td>
-                                        <td>${{ number_format($value->rate, 2) }}</td>
                                         <td>
                                             @if($value->expiry_date < date('Y-m-d'))
                                                 <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 rounded-pill">Expired</span>
@@ -216,24 +176,27 @@
                                                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill">In Stock</span>
                                             @endif
                                         </td>
-                                        <td class="text-xs text-muted">{{ $value->created_at->format('M d, Y h:i A') }}</td>
                                         <td class="text-end">
-                                            <div class="btn-group">
+                                            <div class="d-flex gap-1 justify-content-end">
+                                                <a href="{{ url('admin/stocks/show/'.$value->id) }}"
+                                                   class="btn btn-outline-info btn-sm rounded-3" title="View Details">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
                                                 <a href="{{ url('admin/stocks/edit/'.$value->id) }}"
-                                                   class="btn btn-outline-primary btn-sm rounded-3 me-1">
-                                                    <i class="bi bi-pencil"></i> Edit
+                                                   class="btn btn-outline-primary btn-sm rounded-3" title="Edit Batch">
+                                                    <i class="bi bi-pencil"></i>
                                                 </a>
                                                 <a href="{{ url('admin/stocks/delete/'.$value->id) }}"
-                                                   class="btn btn-outline-danger btn-sm rounded-3"
+                                                   class="btn btn-outline-danger btn-sm rounded-3" title="Delete"
                                                    onclick="return confirm('Are you sure you want to delete this stock entry?');">
-                                                    <i class="bi bi-trash"></i> Delete
+                                                    <i class="bi bi-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="10" class="text-center text-danger py-5">
+                                        <td colspan="6" class="text-center text-danger py-5">
                                             <i class="bi bi-exclamation-circle fs-3 mb-2 d-block"></i>
                                             No Stock Entries Found
                                         </td>

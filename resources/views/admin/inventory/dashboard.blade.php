@@ -60,7 +60,7 @@
                         <div class="card-body p-4 d-flex justify-content-between align-items-center">
                             <div>
                                 <span class="text-secondary small fw-medium text-uppercase">Inventory Valuation</span>
-                                <h3 class="mb-0 fw-bold text-success mt-1">${{ number_format($inventoryValuation, 2) }}</h3>
+                                <h3 class="mb-0 fw-bold text-success mt-1">{{ number_format($inventoryValuation, 2) }}</h3>
                             </div>
                             <div class="rounded-circle p-3 bg-success bg-opacity-25">
                                 <i class="bi bi-currency-dollar text-success fs-3"></i>

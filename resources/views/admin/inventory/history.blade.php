@@ -31,7 +31,7 @@
                         <table class="table align-middle table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>Transaction Date</th>
                                     <th>Medicine Name</th>
                                     <th>Movement Type</th>

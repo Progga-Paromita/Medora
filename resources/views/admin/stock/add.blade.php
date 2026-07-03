@@ -91,7 +91,7 @@
                                     <!-- Rate -->
                                     <div class="col-md-4 mb-3">
                                         <div class="form-group">
-                                            <label for="rate" class="form-label fw-medium mb-2">Purchase Rate ($) <span class="text-danger">*</span></label>
+                                            <label for="rate" class="form-label fw-medium mb-2">Purchase Rate <span class="text-danger">*</span></label>
                                             <input type="number" step="0.01" min="0.01" name="rate" class="form-control @error('rate') is-invalid @enderror" 
                                                    id="rate" value="{{ old('rate') }}" placeholder="e.g. 4.50" required>
                                         </div>
@@ -100,7 +100,7 @@
                                     <!-- MRP -->
                                     <div class="col-md-4 mb-3">
                                         <div class="form-group">
-                                            <label for="mrp" class="form-label fw-medium mb-2">Selling MRP ($) <span class="text-danger">*</span></label>
+                                            <label for="mrp" class="form-label fw-medium mb-2">Selling MRP <span class="text-danger">*</span></label>
                                             <input type="number" step="0.01" min="0.01" name="mrp" class="form-control @error('mrp') is-invalid @enderror" 
                                                    id="mrp" value="{{ old('mrp') }}" placeholder="e.g. 7.99" required>
                                             <div class="form-text text-muted text-xs">Must be greater than or equal to purchase rate.</div>

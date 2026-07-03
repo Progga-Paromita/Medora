@@ -31,7 +31,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>Medicine Name</th>
                                     <th>Generic Name</th>
                                     <th>Packaging</th>

@@ -255,4 +255,14 @@ class MedicinesController extends Controller
         return redirect('admin/stocks')->with('success', 'Stock deleted successfully');
     }
 
+    public function show_stock($id): View
+    {
+        $data['getRecord'] = StockModel::select('stock.*', 'medicines.name as medicine_name', 'medicines.generic_name', 'medicines.packaging')
+            ->join('medicines', 'stock.medicine_id', '=', 'medicines.id')
+            ->where('stock.id', $id)
+            ->firstOrFail();
+        $data['header_title'] = 'Stock Details';
+
+        return view('admin.stock.show', $data);
+    }
 }
