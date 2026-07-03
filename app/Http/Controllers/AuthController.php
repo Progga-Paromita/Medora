@@ -51,6 +51,7 @@ class AuthController extends Controller
 
             // User is authenticated, check role
             if (Auth::user()->is_role == 1 || Auth::user()->is_role == 2) {
+                \App\Models\ActivityLogsModel::log('User logged in successfully');
                 return redirect()->intended('admin/dashboard');
             } else {
                 Auth::logout();
@@ -132,6 +133,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        \App\Models\ActivityLogsModel::log('User logged out');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
