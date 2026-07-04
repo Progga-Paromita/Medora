@@ -23,12 +23,23 @@
         <div class="container-fluid mt-3 mb-5">
             <div class="row">
                 <div class="col-md-10 mx-auto">
+                    <!-- Error list -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="card shadow-sm border-0">
                         <div class="card-header p-4">
                             <h4 class="card-title fw-bold mb-0">Customer & Patient Registry</h4>
                         </div>
                         <div class="card-body p-4">
-                            <form action="{{ url('admin/customers/create') }}" method="post">
+                            <form action="{{ url('admin/customers/create') }}" method="POST">
                                 @csrf
 
                                 <div class="row">
@@ -36,15 +47,18 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
                                             <label for="name" class="form-label fw-medium mb-2">Customer Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}" placeholder="Enter full name" required>
+                                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                                                   id="name" value="{{ old('name') }}" placeholder="Enter full name" required>
                                         </div>
                                     </div>
 
                                     <!-- Phone -->
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
-                                            <label for="phone" class="form-label fw-medium mb-2">Phone Number</label>
-                                            <input type="text" name="phone" class="form-control" id="phone" value="{{ old('phone') }}" placeholder="Enter phone number">
+                                            <label for="phone" class="form-label fw-medium mb-2">Phone Number <span class="text-danger">*</span></label>
+                                            <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" 
+                                                   id="phone" value="{{ old('phone') }}" placeholder="Enter phone number" required>
+                                            <div class="form-text text-muted text-xs">Must be numeric and unique.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -54,15 +68,18 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
                                             <label for="email" class="form-label fw-medium mb-2">Email Address</label>
-                                            <input type="email" name="email" class="form-control" id="email" value="{{ old('email') }}" placeholder="Enter email address">
+                                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                                                   id="email" value="{{ old('email') }}" placeholder="Enter email address">
+                                            <div class="form-text text-muted text-xs">Optional, but must be valid if entered.</div>
                                         </div>
                                     </div>
 
                                     <!-- Address -->
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
-                                            <label for="address" class="form-label fw-medium mb-2">Home Address</label>
-                                            <input type="text" name="address" class="form-control" id="address" value="{{ old('address') }}" placeholder="Enter home address">
+                                            <label for="address" class="form-label fw-medium mb-2">Home Address <span class="text-danger">*</span></label>
+                                            <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" 
+                                                   id="address" value="{{ old('address') }}" placeholder="Enter home address" required>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +92,8 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
                                             <label for="doctor_name" class="form-label fw-medium mb-2">Prescribing Doctor</label>
-                                            <input type="text" name="doctor_name" class="form-control" id="doctor_name" value="{{ old('doctor_name') }}" placeholder="e.g. Dr. John Doe">
+                                            <input type="text" name="doctor_name" class="form-control @error('doctor_name') is-invalid @enderror" 
+                                                   id="doctor_name" value="{{ old('doctor_name') }}" placeholder="e.g. Dr. John Doe">
                                         </div>
                                     </div>
 
@@ -83,12 +101,14 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
                                             <label for="doctor_address" class="form-label fw-medium mb-2">Clinic/Hospital Address</label>
-                                            <input type="text" name="doctor_address" class="form-control" id="doctor_address" value="{{ old('doctor_address') }}" placeholder="Enter clinic address">
+                                            <input type="text" name="doctor_address" class="form-control @error('doctor_address') is-invalid @enderror" 
+                                                   id="doctor_address" value="{{ old('doctor_address') }}" placeholder="Enter clinic address">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top" style="border-color: var(--bs-border-color) !important;">
+                                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                     <a href="{{ url('admin/customers') }}" class="btn btn-secondary">Cancel</a>
                                     <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Save Customer</button>
                                 </div>
