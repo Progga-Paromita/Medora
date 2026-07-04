@@ -42,24 +42,16 @@
                             <h5 class="fw-bold mb-3 text-white border-bottom pb-2">Contact Details</h5>
                             <div class="row g-4 mb-4">
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Phone Number</span>
-                                    <strong class="text-white">{{ $customer->phone ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Phone Number</strong>
+                                    <span class="text-secondary">{{ $customer->phone ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Email Address</span>
-                                    <strong class="text-white text-secondary">{{ $customer->email ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Email Address</strong>
+                                    <span class="text-secondary">{{ $customer->email ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-12">
-                                    <span class="text-muted small d-block">Home Address</span>
-                                    <strong class="text-white d-block">{{ $customer->address ?? 'N/A' }}</strong>
-                                </div>
-                                <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Registration Date</span>
-                                    <span class="text-white">{{ $customer->created_at->format('M d, Y h:i A') }}</span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Last Updated</span>
-                                    <span class="text-white">{{ $customer->updated_at->format('M d, Y h:i A') }}</span>
+                                    <strong class="text-white small d-block">Home Address</strong>
+                                    <span class="text-secondary d-block">{{ $customer->address ?? 'N/A' }}</span>
                                 </div>
                             </div>
 
@@ -67,36 +59,91 @@
                             <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Prescribing Medical Details</h5>
                             <div class="row g-4 mb-4">
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Doctor Name</span>
-                                    <strong class="text-white text-warning">{{ $customer->doctor_name ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Doctor Name</strong>
+                                    <span class="text-secondary">{{ $customer->doctor_name ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Clinic/Hospital Address</span>
-                                    <strong class="text-white">{{ $customer->doctor_address ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Clinic/Hospital Address</strong>
+                                    <span class="text-secondary d-block">{{ $customer->doctor_address ?? 'N/A' }}</span>
                                 </div>
                             </div>
 
-                            <!-- Integration Placeholders -->
-                            <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Invoices & Financial Integration</h5>
+                            <!-- Integration Statistics -->
+                            <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Purchase Performance Metrics</h5>
                             <div class="row g-3">
-                                <div class="col-sm-4">
-                                    <div class="border rounded p-3 text-center" style="border-color: var(--bs-border-color) !important;">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(250, 202, 90, 0.02);">
                                         <h6 class="text-muted mb-1 small">Total Invoices</h6>
-                                        <h4 class="mb-0 fw-bold text-white">0 <span class="text-xs text-muted fw-normal">(Placeholder)</span></h4>
+                                        <h4 class="mb-0 fw-bold text-white">{{ $totalInvoices }}</h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="border rounded p-3 text-center" style="border-color: var(--bs-border-color) !important;">
-                                        <h6 class="text-muted mb-1 small">Total Sales</h6>
-                                        <h4 class="mb-0 fw-bold text-white">$0.00 <span class="text-xs text-muted fw-normal">(Placeholder)</span></h4>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(34, 197, 94, 0.02);">
+                                        <h6 class="text-muted mb-1 small">Unique Medicines</h6>
+                                        <h4 class="mb-0 fw-bold text-white">{{ $totalMedicinesPurchased }}</h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="border rounded p-3 text-center text-danger" style="border-color: var(--bs-border-color) !important; background: rgba(239, 68, 68, 0.05);">
-                                        <h6 class="text-danger mb-1 small">Outstanding Balance</h6>
-                                        <h4 class="mb-0 fw-bold">$0.00 <span class="text-xs text-muted fw-normal">(Placeholder)</span></h4>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(59, 130, 246, 0.02);">
+                                        <h6 class="text-muted mb-1 small">Total Qty Purchased</h6>
+                                        <h4 class="mb-0 fw-bold text-white">{{ number_format($totalQuantityPurchased) }} <span class="text-xs text-muted fw-normal">units</span></h4>
                                     </div>
                                 </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(239, 68, 68, 0.02);">
+                                        <h6 class="text-muted mb-1 small">Total Purchase Value</h6>
+                                        <h4 class="mb-0 fw-bold text-white">{{ number_format($totalSalesValue, 2) }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Invoice Purchase History -->
+                            <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Purchase History</h5>
+                            <div class="table-responsive">
+                                <table class="table align-middle table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Serial</th>
+                                            <th>Invoice Number</th>
+                                            <th>Invoice Date</th>
+                                            <th>Medicines Purchased</th>
+                                            <th>Grand Total</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($invoices as $invoice)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="fw-bold text-white">{{ $invoice->invoice_number }}</td>
+                                                <td>{{ date('M d, Y', strtotime($invoice->invoice_date)) }}</td>
+                                                <td>
+                                                    <ul class="list-unstyled mb-0 small">
+                                                        @foreach($invoice->getInvoiceItems as $item)
+                                                            <li>
+                                                                <span class="text-white">{{ $item->getMedicine->name ?? 'N/A' }}</span>
+                                                                <span class="text-muted">({{ $item->quantity }} units)</span>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td class="text-white">{{ number_format($invoice->net_total, 2) }}</td>
+                                                <td class="text-end">
+                                                    <a href="{{ url('admin/invoices/show/'.$invoice->id) }}" class="btn btn-outline-info btn-sm rounded-3" title="View Invoice Details">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center text-danger py-4">
+                                                    <i class="bi bi-exclamation-circle fs-4 mb-2 d-block"></i>
+                                                    No purchase transactions found for this customer.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
 
                             <!-- Buttons -->

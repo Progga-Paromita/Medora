@@ -135,8 +135,8 @@
                                                                min="1" value="{{ $item['quantity'] }}" required>
                                                         <span class="text-danger text-xs d-none validation-error">Quantity exceeds stock!</span>
                                                     </td>
-                                                    <td class="fw-medium text-white">${{ number_format($item['mrp'], 2) }}</td>
-                                                    <td class="subtotal-cell fw-bold text-success">${{ number_format($item['quantity'] * $item['mrp'], 2) }}</td>
+                                                    <td class="fw-medium text-white">{{ number_format($item['mrp'], 2) }}</td>
+                                                    <td class="subtotal-cell fw-bold text-success">{{ number_format($item['quantity'] * $item['mrp'], 2) }}</td>
                                                     <td>
                                                         <button type="button" class="btn btn-outline-danger btn-sm remove-item-btn"><i class="bi bi-trash"></i></button>
                                                     </td>
@@ -152,14 +152,14 @@
                                         <div class="border rounded p-4" style="border-color: var(--bs-border-color) !important;">
                                             <div class="d-flex justify-content-between mb-3 text-white">
                                                 <span>Gross Subtotal:</span>
-                                                <span class="fw-semibold" id="grossSubtotalLabel">${{ number_format($getRecord->total_amount, 2) }}</span>
+                                                <span class="fw-semibold" id="grossSubtotalLabel">{{ number_format($getRecord->total_amount, 2) }}</span>
                                             </div>
 
                                             <div class="row g-2 align-items-center mb-3">
                                                 <div class="col-sm-5 text-white">Discount:</div>
                                                 <div class="col-sm-4">
                                                     <select name="discount_type" id="discount_type" class="form-select form-select-sm">
-                                                        <option value="fixed">Fixed ($)</option>
+                                                        <option value="fixed">Fixed</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-3">
@@ -180,7 +180,7 @@
 
                                             <div class="d-flex justify-content-between text-success fw-bold fs-5">
                                                 <span>Net Grand Total:</span>
-                                                <span id="netGrandTotalLabel">${{ number_format($getRecord->net_total, 2) }}</span>
+                                                <span id="netGrandTotalLabel">{{ number_format($getRecord->net_total, 2) }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +255,7 @@
                                 </div>
                                 <div class="text-end">
                                     <span class="badge ${item.available_qty > 0 ? 'bg-success' : 'bg-danger'} rounded-pill me-2">Qty: ${item.available_qty}</span>
-                                    <span class="text-success fw-bold">$${item.mrp.toFixed(2)}</span>
+                                    <span class="text-success fw-bold">${item.mrp.toFixed(2)}</span>
                                 </div>
                             `;
                             li.addEventListener('click', () => addMedicineRow(item));
@@ -294,7 +294,7 @@
                 }
 
                 const sub = q * mrp;
-                subtotalCell.textContent = '$' + sub.toFixed(2);
+                subtotalCell.textContent =  sub.toFixed(2);
                 recalculateTotal();
             });
 
@@ -345,8 +345,8 @@
                            min="1" value="1" required>
                     <span class="text-danger text-xs d-none validation-error">Quantity exceeds stock!</span>
                 </td>
-                <td class="fw-medium text-white">$${item.mrp.toFixed(2)}</td>
-                <td class="subtotal-cell fw-bold text-success">$${item.mrp.toFixed(2)}</td>
+                <td class="fw-medium text-white">${item.mrp.toFixed(2)}</td>
+                <td class="subtotal-cell fw-bold text-success">${item.mrp.toFixed(2)}</td>
                 <td>
                     <button type="button" class="btn btn-outline-danger btn-sm remove-item-btn"><i class="bi bi-trash"></i></button>
                 </td>
@@ -381,7 +381,7 @@
                 }
             });
 
-            grossSubtotalLabel.textContent = '$' + grossSubtotal.toFixed(2);
+            grossSubtotalLabel.textContent =  grossSubtotal.toFixed(2);
 
             const discType = discountType.value;
             const discVal = parseFloat(discountValue.value) || 0;
@@ -398,7 +398,7 @@
             const taxAmt = (taxVal / 100) * afterDiscount;
             const netGrandTotal = afterDiscount + taxAmt;
 
-            netGrandTotalLabel.textContent = '$' + netGrandTotal.toFixed(2);
+            netGrandTotalLabel.textContent =  netGrandTotal.toFixed(2);
 
             if (rowsCount > 0 && !containsError) {
                 saveInvoiceBtn.removeAttribute('disabled');

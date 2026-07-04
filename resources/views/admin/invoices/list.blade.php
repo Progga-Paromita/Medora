@@ -36,7 +36,7 @@
                         <div class="card-body py-1 px-2">
                             <i class="bi bi-cash text-primary fs-3 mb-1 d-block"></i>
                             <span class="text-secondary small fw-medium text-uppercase">Today's Sales</span>
-                            <h5 class="mb-0 fw-bold mt-1 text-white">${{ number_format($todaySales, 2) }}</h5>
+                            <h5 class="mb-0 fw-bold mt-1 text-white">{{ number_format($todaySales, 2) }}</h5>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         <div class="card-body py-1 px-2">
                             <i class="bi bi-graph-up-arrow text-success fs-3 mb-1 d-block"></i>
                             <span class="text-secondary small fw-medium text-uppercase">Monthly Sales</span>
-                            <h5 class="mb-0 fw-bold mt-1 text-success">${{ number_format($monthlySales, 2) }}</h5>
+                            <h5 class="mb-0 fw-bold mt-1 text-success">{{ number_format($monthlySales, 2) }}</h5>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <div class="card-body py-1 px-2">
                             <i class="bi bi-wallet2 text-info fs-3 mb-1 d-block"></i>
                             <span class="text-secondary small fw-medium text-uppercase">Total Revenue</span>
-                            <h5 class="mb-0 fw-bold mt-1 text-white">${{ number_format($totalRevenue, 2) }}</h5>
+                            <h5 class="mb-0 fw-bold mt-1 text-white">{{ number_format($totalRevenue, 2) }}</h5>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         <div class="card-body py-1 px-2">
                             <i class="bi bi-calculator text-danger fs-3 mb-1 d-block"></i>
                             <span class="text-secondary small fw-medium text-uppercase">Avg Invoice</span>
-                            <h5 class="mb-0 fw-bold mt-1 text-white">${{ number_format($avgInvoiceValue, 2) }}</h5>
+                            <h5 class="mb-0 fw-bold mt-1 text-white">{{ number_format($avgInvoiceValue, 2) }}</h5>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                 <div class="card-body p-4">
                     <form action="" method="GET" class="row g-3">
                         <!-- Keyword Search -->
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-md-6">
                             <label for="search" class="form-label small fw-medium">Search Invoice / Customer</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-search"></i></span>
@@ -102,7 +102,7 @@
                         </div>
 
                         <!-- Customer select -->
-                        <div class="col-lg-2 col-md-3 col-sm-6">
+                        <div class="col-md-4">
                             <label for="customer_id" class="form-label small fw-medium">Customer</label>
                             <select name="customer_id" id="customer_id" class="form-select">
                                 <option value="">All Customers</option>
@@ -112,31 +112,8 @@
                             </select>
                         </div>
 
-                        <!-- Active / Deleted status dropdown -->
-                        <div class="col-lg-2 col-md-3 col-sm-6">
-                            <label for="status" class="form-label small fw-medium">Active / Deleted</label>
-                            <select name="status" id="status" class="form-select">
-                                <option value="">Active Invoices</option>
-                                <option value="deleted" {{ request('status') === 'deleted' ? 'selected' : '' }}>Deleted (Soft Deleted)</option>
-                            </select>
-                        </div>
-
-                        <!-- Min / Max Amount -->
-                        <div class="col-lg-1.5 col-md-3 col-sm-6">
-                            <label for="min_amount" class="form-label small fw-medium">Min Payable</label>
-                            <input type="number" step="0.01" name="min_amount" id="min_amount" class="form-control" value="{{ request('min_amount') }}" placeholder="0.00">
-                        </div>
-                        <div class="col-lg-1.5 col-md-3 col-sm-6">
-                            <label for="max_amount" class="form-label small fw-medium">Max Payable</label>
-                            <input type="number" step="0.01" name="max_amount" id="max_amount" class="form-control" value="{{ request('max_amount') }}" placeholder="1000.00">
-                        </div>
-
-                        <!-- Dates -->
-                        <div class="col-lg-2 col-md-4 col-sm-6">
-                            <label for="start_date" class="form-label small fw-medium">Start Date</label>
-                            <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
-                        </div>
-                        <div class="col-lg-1 col-md-4 col-sm-6">
+                        <!-- Page limit -->
+                        <div class="col-md-2">
                             <label for="limit" class="form-label small fw-medium">Show</label>
                             <select name="limit" id="limit" class="form-select">
                                 <option value="10" {{ request('limit') == '10' ? 'selected' : '' }}>10</option>
@@ -174,7 +151,7 @@
                         <table class="table align-middle table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>
                                         <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'invoice_no', 'sort_order' => request('sort_by') == 'invoice_no' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
                                             Invoice Number
@@ -205,9 +182,6 @@
                                             @endif
                                         </a>
                                     </th>
-                                    <th>Subtotal Amount</th>
-                                    <th>Total Discount</th>
-                                    <th>VAT / Tax</th>
                                     <th>
                                         <a href="{{ request()->fullUrlWithQuery(['sort_by' => 'net_total', 'sort_order' => request('sort_by') == 'net_total' && request('sort_order') == 'asc' ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
                                             Net Grand Total
@@ -218,7 +192,6 @@
                                             @endif
                                         </a>
                                     </th>
-                                    <th>Created Time</th>
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
@@ -233,56 +206,35 @@
                                             <span class="fw-medium text-white">{{ $value->customer_name }}</span>
                                         </td>
                                         <td>{{ date('M d, Y', strtotime($value->invoice_date)) }}</td>
-                                        <td>${{ number_format($value->total_amount, 2) }}</td>
-                                        <td class="text-danger">-${{ number_format($value->total_discount, 2) }}</td>
-                                        <td>{{ number_format($value->tax, 1) }}%</td>
-                                        <td class="fw-bold text-success">${{ number_format($value->net_total, 2) }}</td>
-                                        <td class="text-xs text-muted">{{ $value->created_at->format('M d, Y h:i A') }}</td>
+                                        <td class="fw-bold text-success">{{ number_format($value->net_total, 2) }}</td>
                                         <td class="text-end">
-                                            <div class="dropdown">
-                                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1 dropdown-toggle" 
-                                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Manage
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3">
-                                                    @if($value->is_deleted == 0)
-                                                        <li>
-                                                            <a href="{{ url('admin/invoices/show/'.$value->id) }}" class="dropdown-item py-2">
-                                                                <i class="bi bi-eye text-info me-2"></i> View Invoice
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('admin/invoices/print/'.$value->id) }}" target="_blank" class="dropdown-item py-2">
-                                                                <i class="bi bi-printer text-warning me-2"></i> Print Receipt
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('admin/invoices/edit/'.$value->id) }}" class="dropdown-item py-2">
-                                                                <i class="bi bi-pencil text-primary me-2"></i> Edit Record
-                                                            </a>
-                                                        </li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li>
-                                                            <a href="{{ url('admin/invoices/delete/'.$value->id) }}" class="dropdown-item py-2 text-danger"
-                                                               onclick="return confirm('Are you sure you want to delete this invoice? This will soft delete the invoice and add the item quantities back into stock.');">
-                                                                <i class="bi bi-trash me-2"></i> Soft Delete
-                                                            </a>
-                                                        </li>
-                                                    @else
-                                                        <li>
-                                                            <a href="{{ url('admin/invoices/restore/'.$value->id) }}" class="dropdown-item py-2 text-success"
-                                                               onclick="return confirm('Are you sure you want to restore this soft-deleted invoice? This will re-deduct quantities from stock.');">
-                                                                <i class="bi bi-arrow-counterclockwise me-2"></i> Restore Invoice
-                                                            </a>
-                                                        </li>
-                                                    @endif
-                                                </ul>
+                                            <div class="d-flex gap-1 justify-content-end">
+                                                @if($value->is_deleted == 0)
+                                                    <a href="{{ url('admin/invoices/show/'.$value->id) }}" class="btn btn-outline-info btn-sm rounded-3" title="View Details">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                    <a href="{{ url('admin/invoices/print/'.$value->id) }}" target="_blank" class="btn btn-outline-warning btn-sm rounded-3" title="Print Receipt">
+                                                        <i class="bi bi-printer"></i>
+                                                    </a>
+                                                    <a href="{{ url('admin/invoices/edit/'.$value->id) }}" class="btn btn-outline-primary btn-sm rounded-3" title="Edit Invoice">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a href="{{ url('admin/invoices/delete/'.$value->id) }}" class="btn btn-outline-danger btn-sm rounded-3" title="Delete"
+                                                       onclick="return confirm('Are you sure you want to delete this invoice? This will soft delete the invoice and add the item quantities back into stock.');">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ url('admin/invoices/restore/'.$value->id) }}" class="btn btn-outline-success btn-sm rounded-3" title="Restore"
+                                                       onclick="return confirm('Are you sure you want to restore this soft-deleted invoice? This will re-deduct quantities from stock.');">
+                                                        <i class="bi bi-arrow-counterclockwise"></i> Restore
+                                                    </a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="10" class="text-center text-danger py-5">
+                                        <td colspan="6" class="text-center text-danger py-5">
                                             <i class="bi bi-exclamation-circle fs-3 mb-2 d-block"></i>
                                             No Invoices Found
                                         </td>

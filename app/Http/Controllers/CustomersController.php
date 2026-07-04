@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CustomersModel;
+use App\Models\InvoicesModel;
 
 class CustomersController extends Controller
 {
@@ -55,8 +56,41 @@ class CustomersController extends Controller
     public function show($id)
     {
         $customer = CustomersModel::findOrFail($id);
+        
+        // Fetch purchase/invoice history for the customer
+        $invoices = InvoicesModel::where('customer_id', $customer->id)
+            ->where('is_deleted', 0)
+            ->with(['getInvoiceItems.getMedicine'])
+            ->orderBy('invoice_date', 'desc')
+            ->orderBy('id', 'desc')
+            ->get();
+            
+        // Calculate statistics
+        $totalInvoices = $invoices->count();
+        
+        // Count total unique medicines purchased
+        $uniqueMedicines = [];
+        $totalQuantityPurchased = 0;
+        $totalSalesValue = 0;
+        
+        foreach ($invoices as $invoice) {
+            $totalSalesValue += $invoice->net_total;
+            foreach ($invoice->getInvoiceItems as $item) {
+                if ($item->medicine_id) {
+                    $uniqueMedicines[$item->medicine_id] = true;
+                }
+                $totalQuantityPurchased += $item->quantity;
+            }
+        }
+        
         $data['customer'] = $customer;
+        $data['invoices'] = $invoices;
+        $data['totalInvoices'] = $totalInvoices;
+        $data['totalQuantityPurchased'] = $totalQuantityPurchased;
+        $data['totalMedicinesPurchased'] = count($uniqueMedicines);
+        $data['totalSalesValue'] = $totalSalesValue;
         $data['header_title'] = 'Customer Details';
+        
         return view('admin.customers.show', $data);
     }
 

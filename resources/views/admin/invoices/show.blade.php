@@ -31,8 +31,8 @@
                                 <span class="text-muted small">Customer: <strong>{{ optional($invoice->getCustomerName)->name ?? 'Walk-in' }}</strong></span>
                             </div>
                             <div class="text-end">
-                                <span class="text-muted small d-block">Sale Date</span>
-                                <strong class="text-white">{{ date('M d, Y', strtotime($invoice->invoice_date)) }}</strong>
+                                <strong class="text-white small d-block">Sale Date</strong>
+                                <span class="text-secondary">{{ date('M d, Y', strtotime($invoice->invoice_date)) }}</span>
                             </div>
                         </div>
 
@@ -52,21 +52,21 @@
                                     <h6 class="text-secondary text-uppercase small fw-bold">Invoice Summary</h6>
                                     <div class="border rounded p-3 h-100 d-flex flex-column justify-content-center" style="border-color: var(--bs-border-color) !important;">
                                         <div class="d-flex justify-content-between mb-2">
-                                            <span class="text-muted small">Gross Subtotal:</span>
-                                            <strong class="text-white">${{ number_format($invoice->total_amount, 2) }}</strong>
+                                            <strong class="text-white small">Gross Subtotal:</strong>
+                                            <span class="text-secondary">{{ number_format($invoice->total_amount, 2) }}</span>
                                         </div>
                                         <div class="d-flex justify-content-between mb-2">
-                                            <span class="text-muted small">Discount Deducted:</span>
-                                            <strong class="text-danger">-${{ number_format($invoice->total_discount, 2) }}</strong>
+                                            <strong class="text-white small">Discount Deducted:</strong>
+                                            <span class="text-danger">-{{ number_format($invoice->total_discount, 2) }}</span>
                                         </div>
                                         <div class="d-flex justify-content-between mb-2">
-                                            <span class="text-muted small">VAT / Tax rate:</span>
-                                            <strong class="text-white">{{ number_format($invoice->tax, 1) }}%</strong>
+                                            <strong class="text-white small">VAT / Tax rate:</strong>
+                                            <span class="text-secondary">{{ number_format($invoice->tax, 1) }}%</span>
                                         </div>
                                         <hr class="my-2" style="border-color: var(--bs-border-color) !important;">
                                         <div class="d-flex justify-content-between text-success fw-bold">
-                                            <span>Net Payable Total:</span>
-                                            <span>${{ number_format($invoice->net_total, 2) }}</span>
+                                            <strong>Net Payable Total:</strong>
+                                            <span>{{ number_format($invoice->net_total, 2) }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -78,13 +78,13 @@
                                 <table class="table align-middle">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>Serial</th>
                                             <th>Medicine Name</th>
                                             <th>Generic Name</th>
                                             <th>Packaging</th>
                                             <th class="text-center">Qty Sold</th>
-                                            <th class="text-end">Selling Price ($)</th>
-                                            <th class="text-end">Subtotal ($)</th>
+                                            <th class="text-end">Selling Price</th>
+                                            <th class="text-end">Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,15 +95,15 @@
                                                 <td class="text-secondary">{{ optional($item->getMedicine)->generic_name ?? 'N/A' }}</td>
                                                 <td><span class="badge bg-secondary-subtle border px-2 py-0.5 rounded-pill">{{ optional($item->getMedicine)->packaging ?? 'N/A' }}</span></td>
                                                 <td class="text-center fw-bold">{{ $item->quantity }}</td>
-                                                <td class="text-end">${{ number_format($item->selling_price, 2) }}</td>
-                                                <td class="text-end fw-bold text-success">${{ number_format($item->subtotal, 2) }}</td>
+                                                <td class="text-end">{{ number_format($item->selling_price, 2) }}</td>
+                                                <td class="text-end fw-bold text-success">{{ number_format($item->subtotal, 2) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="6" class="text-end fw-bold text-white fs-5">Gross Bill Total:</td>
-                                            <td class="text-end fw-bold text-white fs-5">${{ number_format($invoice->total_amount, 2) }}</td>
+                                            <td class="text-end fw-bold text-white fs-5">{{ number_format($invoice->total_amount, 2) }}</td>
                                         </tr>
                                     </tfoot>
                                 </table>

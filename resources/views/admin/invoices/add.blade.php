@@ -141,7 +141,7 @@
                                                 <div class="col-sm-4">
                                                     <select name="discount_type" id="discount_type" class="form-select form-select-sm">
                                                         <option value="percentage">% Percent</option>
-                                                        <option value="fixed">$ Fixed</option>
+                                                        <option value="fixed">Fixed</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-3">
@@ -228,7 +228,7 @@
                                 </div>
                                 <div class="text-end">
                                     <span class="badge ${item.available_qty > 0 ? 'bg-success' : 'bg-danger'} rounded-pill me-2">Qty: ${item.available_qty}</span>
-                                    <span class="text-success fw-bold">$${item.mrp.toFixed(2)}</span>
+                                    <span class="text-success fw-bold">${item.mrp.toFixed(2)}</span>
                                 </div>
                             `;
                             li.addEventListener('click', () => addMedicineRow(item));
@@ -287,8 +287,8 @@
                            min="1" value="1" required>
                     <span class="text-danger text-xs d-none validation-error">Quantity exceeds stock!</span>
                 </td>
-                <td class="fw-medium text-white">$${item.mrp.toFixed(2)}</td>
-                <td class="subtotal-cell fw-bold text-success">$${item.mrp.toFixed(2)}</td>
+                <td class="fw-medium text-white">${item.mrp.toFixed(2)}</td>
+                <td class="subtotal-cell fw-bold text-success">${item.mrp.toFixed(2)}</td>
                 <td>
                     <button type="button" class="btn btn-outline-danger btn-sm remove-item-btn"><i class="bi bi-trash"></i></button>
                 </td>
@@ -311,7 +311,7 @@
                 }
 
                 const sub = q * item.mrp;
-                subtotalCell.textContent = '$' + sub.toFixed(2);
+                subtotalCell.textContent =  sub.toFixed(2);
                 recalculateTotal();
             });
 
@@ -350,7 +350,7 @@
                 }
             });
 
-            grossSubtotalLabel.textContent = '$' + grossSubtotal.toFixed(2);
+            grossSubtotalLabel.textContent =  grossSubtotal.toFixed(2);
 
             const discType = discountType.value;
             const discVal = parseFloat(discountValue.value) || 0;
@@ -367,7 +367,7 @@
             const taxAmt = (taxVal / 100) * afterDiscount;
             const netGrandTotal = afterDiscount + taxAmt;
 
-            netGrandTotalLabel.textContent = '$' + netGrandTotal.toFixed(2);
+            netGrandTotalLabel.textContent =  netGrandTotal.toFixed(2);
 
             // Enable submit button only if invoice contains items and has no validation stock warnings
             if (rowsCount > 0 && !containsError) {

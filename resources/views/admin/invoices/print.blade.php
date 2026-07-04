@@ -82,12 +82,12 @@
     <table class="table table-bordered table-striped table-sm mb-4">
         <thead>
             <tr>
-                <th class="text-center" style="width: 5%;">#</th>
+                <th class="text-center" style="width: 5%;">Serial</th>
                 <th style="width: 45%;">Medicine Name</th>
                 <th style="width: 25%;">Generic Name</th>
                 <th class="text-center" style="width: 10%;">Qty</th>
-                <th class="text-end" style="width: 15%;">MRP ($)</th>
-                <th class="text-end" style="width: 15%;">Total ($)</th>
+                <th class="text-end" style="width: 15%;">MRP</th>
+                <th class="text-end" style="width: 15%;">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -97,8 +97,8 @@
                     <td>{{ optional($item->getMedicine)->name }} ({{ optional($item->getMedicine)->packaging }})</td>
                     <td>{{ optional($item->getMedicine)->generic_name }}</td>
                     <td class="text-center">{{ $item->quantity }}</td>
-                    <td class="text-end">${{ number_format($item->selling_price, 2) }}</td>
-                    <td class="text-end">${{ number_format($item->subtotal, 2) }}</td>
+                    <td class="text-end">{{ number_format($item->selling_price, 2) }}</td>
+                    <td class="text-end">{{ number_format($item->subtotal, 2) }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -110,19 +110,19 @@
             <table class="table table-sm table-borderless">
                 <tr>
                     <td class="meta-label">Gross Subtotal:</td>
-                    <td class="text-end">${{ number_format($invoice->total_amount, 2) }}</td>
+                    <td class="text-end">{{ number_format($invoice->total_amount, 2) }}</td>
                 </tr>
                 <tr>
                     <td class="meta-label text-danger">Total Discount:</td>
-                    <td class="text-end text-danger">-${{ number_format($invoice->total_discount, 2) }}</td>
+                    <td class="text-end text-danger">-{{ number_format($invoice->total_discount, 2) }}</td>
                 </tr>
                 <tr>
                     <td class="meta-label">VAT / Tax ({{ number_format($invoice->tax, 1) }}%):</td>
-                    <td class="text-end">${{ number_format(($invoice->tax / 100) * ($invoice->total_amount - $invoice->total_discount), 2) }}</td>
+                    <td class="text-end">{{ number_format(($invoice->tax / 100) * ($invoice->total_amount - $invoice->total_discount), 2) }}</td>
                 </tr>
                 <tr class="border-top border-dark">
                     <td class="meta-label fs-5">Net Payable:</td>
-                    <td class="text-end fw-bold fs-5">${{ number_format($invoice->net_total, 2) }}</td>
+                    <td class="text-end fw-bold fs-5">{{ number_format($invoice->net_total, 2) }}</td>
                 </tr>
             </table>
         </div>
