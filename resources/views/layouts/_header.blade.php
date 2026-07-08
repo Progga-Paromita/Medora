@@ -78,25 +78,7 @@
                 </ul>
             </li>
 
-            <!-- Notifications Dropdown -->
-            <li class="nav-item dropdown me-2">
-                <a class="nav-link btn btn-link p-2 rounded-circle hover-bg-light position-relative" data-bs-toggle="dropdown" href="#" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--bs-body-color);">
-                    <i class="bi bi-bell fs-5"></i>
-                    <span class="position-absolute top-1 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="transform: translate(-12px, 8px) !important;"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4" style="background: var(--bs-card-bg); border: 1px solid var(--bs-border-color) !important;">
-                    <span class="dropdown-item dropdown-header fw-bold text-white">15 Notifications</span>
-                    <div class="dropdown-divider" style="border-top: 1px solid var(--bs-border-color);"></div>
-                    <a href="#" class="dropdown-item text-sm text-white-50">
-                        <i class="bi bi-envelope me-2 text-primary"></i> 4 new messages
-                    </a>
-                    <a href="#" class="dropdown-item text-sm text-white-50">
-                        <i class="bi bi-boxes me-2 text-warning"></i> Low stock warning
-                    </a>
-                    <div class="dropdown-divider" style="border-top: 1px solid var(--bs-border-color);"></div>
-                    <a href="#" class="dropdown-item dropdown-footer text-center text-sm text-primary">See All Notifications</a>
-                </div>
-            </li>
+
 
             <!-- User Menu Dropdown -->
             <li class="nav-item dropdown user-menu">
@@ -107,7 +89,7 @@
                         alt="User Image"
                         style="width: 32px; height: 32px; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.15);"
                     />
-                    <span class="d-none d-md-inline ms-2 fw-semibold text-sm text-white">{{ Auth::user()->name }}</span>
+                    <span class="d-none d-md-inline ms-2 fw-semibold text-sm" style="color: var(--bs-body-color);">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4" style="background: var(--bs-card-bg); border: 1px solid var(--bs-border-color) !important;">
                     <!--User Image-->
