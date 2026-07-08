@@ -26,7 +26,7 @@
                     <form action="" method="GET" class="row g-3">
                         <div class="col-md-4">
                             <label for="search" class="form-label small fw-medium">Search Logs</label>
-                            <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}" placeholder="Action, IP address, username...">
+                            <input type="text" name="search" id="search" class="form-control" value="{{ request('search') }}" placeholder="Search name, email, or role...">
                         </div>
                         <div class="col-md-3">
                             <label for="start_date" class="form-label small fw-medium">Start Date</label>
@@ -56,35 +56,30 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>User Account</th>
-                                    <th>Performed Action</th>
-                                    <th>IP Address</th>
-                                    <th>Device / User Agent</th>
-                                    <th>Timestamp</th>
+                                    <th>Role</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Date & Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($getRecord as $value)
                                     <tr>
                                         <td>{{ ($getRecord->currentPage() - 1) * $getRecord->perPage() + $loop->iteration }}</td>
-                                        <td class="fw-bold text-white">
-                                            @if($value->user_name)
-                                                {{ $value->user_name }}
-                                                <small class="d-block text-muted">{{ $value->user_email }}</small>
+                                        <td>
+                                            @if($value->role === 'Administrator')
+                                                <span class="badge bg-primary rounded-pill px-3 py-1">{{ $value->role }}</span>
                                             @else
-                                                <span class="text-muted">Guest / System</span>
+                                                <span class="badge bg-secondary rounded-pill px-3 py-1">{{ $value->role }}</span>
                                             @endif
                                         </td>
-                                        <td class="text-white">{{ $value->action }}</td>
-                                        <td><code>{{ $value->ip_address }}</code></td>
-                                        <td class="text-muted text-xs" style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                            {{ $value->user_agent }}
-                                        </td>
+                                        <td class="fw-bold text-white">{{ $value->name }}</td>
+                                        <td>{{ $value->email }}</td>
                                         <td>{{ date('M d, Y h:i A', strtotime($value->created_at)) }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-danger py-4">
+                                        <td colspan="5" class="text-center text-danger py-4">
                                             No system activity logs found.
                                         </td>
                                     </tr>

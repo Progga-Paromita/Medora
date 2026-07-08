@@ -85,14 +85,17 @@ class AdministrationTest extends TestCase
      */
     public function test_admin_can_view_activity_logs()
     {
-        // Log an activity
-        ActivityLogsModel::log('Custom test activity logged');
+        $this->actingAs($this->adminUser);
 
-        $response = $this->actingAs($this->adminUser)
-            ->get('/admin/activity-logs');
+        // Log an activity
+        ActivityLogsModel::log();
+
+        $response = $this->get('/admin/activity-logs');
 
         $response->assertStatus(200);
-        $response->assertSee('Custom test activity logged');
+        $response->assertSee('Admin Admin');
+        $response->assertSee('admin_adm@example.com');
+        $response->assertSee('Administrator');
     }
 
     /**

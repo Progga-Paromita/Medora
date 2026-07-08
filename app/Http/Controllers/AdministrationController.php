@@ -86,29 +86,27 @@ class AdministrationController extends Controller
     {
         $data['header_title'] = 'Activity & Audit Logs';
 
-        $query = ActivityLogsModel::select('activity_logs.*')
-            ->leftJoin('users', 'activity_logs.user_id', '=', 'users.id')
-            ->select('activity_logs.*', 'users.name as user_name', 'users.email as user_email');
+        $query = ActivityLogsModel::query();
 
-        // Search IP, Action, Username
+        // Search Name, Email, Role
         if (!empty($request->get('search'))) {
             $search = trim($request->get('search'));
             $query->where(function($q) use ($search) {
-                $q->where('activity_logs.action', 'like', '%' . $search . '%')
-                  ->orWhere('activity_logs.ip_address', 'like', '%' . $search . '%')
-                  ->orWhere('users.name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%')
+                  ->orWhere('role', 'like', '%' . $search . '%');
             });
         }
 
         // Date Range
         if (!empty($request->get('start_date'))) {
-            $query->whereDate('activity_logs.created_at', '>=', $request->get('start_date'));
+            $query->whereDate('created_at', '>=', $request->get('start_date'));
         }
         if (!empty($request->get('end_date'))) {
-            $query->whereDate('activity_logs.created_at', '<=', $request->get('end_date'));
+            $query->whereDate('created_at', '<=', $request->get('end_date'));
         }
 
-        $data['getRecord'] = $query->orderBy('activity_logs.created_at', 'desc')
+        $data['getRecord'] = $query->orderBy('created_at', 'desc')
             ->paginate(20)
             ->withQueryString();
 

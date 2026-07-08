@@ -9,30 +9,23 @@ class ActivityLogsModel extends Model
     protected $table = 'activity_logs';
 
     protected $fillable = [
-        'user_id',
-        'action',
-        'ip_address',
-        'user_agent'
+        'name',
+        'email',
+        'role'
     ];
 
     /**
      * Log user activity trail.
      */
-    public static function log($action)
+    public static function log($action = null)
     {
-        self::create([
-            'user_id' => optional(auth()->user())->id,
-            'action' => $action,
-            'ip_address' => request()->ip(),
-            'user_agent' => request()->userAgent()
-        ]);
-    }
-
-    /**
-     * Relationship to User model.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
+        $user = auth()->user();
+        if ($user) {
+            self::create([
+                'name' => trim(($user->name ?? '') . ' ' . ($user->last_name ?? '')),
+                'email' => $user->email,
+                'role' => $user->is_role == 1 ? 'Administrator' : 'Pharmacy Staff'
+            ]);
+        }
     }
 }

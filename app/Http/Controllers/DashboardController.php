@@ -150,9 +150,7 @@ class DashboardController extends Controller
         $data['distMedQty'] = json_encode($inventoryDist->pluck('total_qty')->map(fn($v) => (int)$v));
 
         // 3. Recent Activities Feed
-        $data['recentActivities'] = ActivityLogsModel::select('activity_logs.*', 'users.name as user_name')
-            ->leftJoin('users', 'activity_logs.user_id', '=', 'users.id')
-            ->orderBy('activity_logs.created_at', 'desc')
+        $data['recentActivities'] = ActivityLogsModel::orderBy('created_at', 'desc')
             ->limit(8)
             ->get();
 
