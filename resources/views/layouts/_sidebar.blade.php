@@ -223,14 +223,7 @@
                 </li>
                 @endif
 
-                <!-- Notification Center (Shared) -->
-                <li class="nav-item">
-                    <a href="{{ url('admin/inventory/notifications') }}"
-                       class="nav-link {{ Request::segment(3) == 'notifications' ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-bell"></i>
-                        <p>Notification Center</p>
-                    </a>
-                </li>
+
 
                 <!-- Help & Support (Shared) -->
                 <li class="nav-item">

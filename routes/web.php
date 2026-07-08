@@ -75,7 +75,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/inventory/near-expiry', [InventoryController::class, 'nearExpiry']);
     Route::get('admin/inventory/history', [InventoryController::class, 'history']);
 
-    Route::get('admin/inventory/notifications', [AdministrationController::class, 'notifications']);
     Route::get('admin/inventory/help', [AdministrationController::class, 'help']);
 
     // ================= ADMIN-ONLY ROUTES =================
