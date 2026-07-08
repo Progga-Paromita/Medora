@@ -37,19 +37,19 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="fw-bold text-white">Sales Revenue (Invoiced Total)</td>
+                                        <td class="fw-bold" style="color: var(--bs-body-color);">Sales Revenue (Invoiced Total)</td>
                                         <td class="text-end fw-bold text-success">${{ number_format($totalRevenue, 2) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold text-white">Expenses (Supplier Purchases Total)</td>
+                                        <td class="fw-bold" style="color: var(--bs-body-color);">Expenses (Supplier Purchases Total)</td>
                                         <td class="text-end fw-bold text-danger">-${{ number_format($totalPurchases, 2) }}</td>
                                     </tr>
-                                    <tr class="table-dark">
-                                        <td class="fw-bold text-white">Calculated Gross Profit</td>
+                                    <tr style="background: var(--bs-secondary-bg);">
+                                        <td class="fw-bold" style="color: var(--bs-body-color);">Calculated Gross Profit</td>
                                         <td class="text-end fw-bold text-success">${{ number_format($grossProfit, 2) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold text-white">Inventory Asset Value (at cost)</td>
+                                        <td class="fw-bold" style="color: var(--bs-body-color);">Inventory Asset Value (at cost)</td>
                                         <td class="text-end fw-bold text-warning">${{ number_format($inventoryValuation, 2) }}</td>
                                     </tr>
                                 </tbody>
