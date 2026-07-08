@@ -42,9 +42,6 @@
                                     <button class="nav-link text-start py-3 fw-bold" id="v-pills-inventory-tab" data-bs-toggle="pill" data-bs-target="#v-pills-inventory" type="button" role="tab" aria-controls="v-pills-inventory" aria-selected="false">
                                         <i class="bi bi-sliders me-2 text-warning"></i> Inventory Controls
                                     </button>
-                                    <button class="nav-link text-start py-3 fw-bold" id="v-pills-invoices-tab" data-bs-toggle="pill" data-bs-target="#v-pills-invoices" type="button" role="tab" aria-controls="v-pills-invoices" aria-selected="false">
-                                        <i class="bi bi-hash me-2 text-info"></i> Code Prefixes
-                                    </button>
                                     <button class="nav-link text-start py-3 fw-bold" id="v-pills-theme-tab" data-bs-toggle="pill" data-bs-target="#v-pills-theme" type="button" role="tab" aria-controls="v-pills-theme" aria-selected="false">
                                         <i class="bi bi-palette me-2 text-purple" style="color: #a855f7;"></i> Theme & Look
                                     </button>
@@ -113,20 +110,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- 4. Code Prefixes Tab -->
-                                    <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab" tabindex="0">
-                                        <h5 class="fw-bold mb-4 text-white">Transaction Prefix Codes</h5>
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="invoice_prefix" class="form-label small fw-medium">Sales Invoice Prefix</label>
-                                                <input type="text" name="invoice_prefix" id="invoice_prefix" class="form-control" value="{{ old('invoice_prefix', $invoice_prefix) }}" required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="purchase_prefix" class="form-label small fw-medium">Purchase Order Prefix</label>
-                                                <input type="text" name="purchase_prefix" id="purchase_prefix" class="form-control" value="{{ old('purchase_prefix', $purchase_prefix) }}" required>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                                     <!-- 5. Theme Settings Tab -->
                                     <div class="tab-pane fade" id="v-pills-theme" role="tabpanel" aria-labelledby="v-pills-theme-tab" tabindex="0">

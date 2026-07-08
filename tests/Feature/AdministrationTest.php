@@ -63,8 +63,6 @@ class AdministrationTest extends TestCase
             'website' => 'superhealth.com',
             'currency' => 'Tk',
             'tax_percentage' => 5,
-            'invoice_prefix' => 'SUPINV-',
-            'purchase_prefix' => 'SUPPUR-',
             'low_stock_threshold' => 15,
             'expiry_alert_days' => 45,
             'theme' => 'dark'

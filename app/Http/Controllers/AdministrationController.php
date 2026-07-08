@@ -54,8 +54,6 @@ class AdministrationController extends Controller
             'website' => 'nullable|string',
             'currency' => 'required|string|max:10',
             'tax_percentage' => 'required|numeric|min:0|max:100',
-            'invoice_prefix' => 'required|string|max:20',
-            'purchase_prefix' => 'required|string|max:20',
             'low_stock_threshold' => 'required|integer|min:1',
             'expiry_alert_days' => 'required|integer|min:1',
             'theme' => 'required|string|in:light,dark'
@@ -68,8 +66,6 @@ class AdministrationController extends Controller
         SettingsModel::setValue('website', $request->website);
         SettingsModel::setValue('currency', $request->currency);
         SettingsModel::setValue('tax_percentage', $request->tax_percentage);
-        SettingsModel::setValue('invoice_prefix', $request->invoice_prefix);
-        SettingsModel::setValue('purchase_prefix', $request->purchase_prefix);
         SettingsModel::setValue('low_stock_threshold', $request->low_stock_threshold);
         SettingsModel::setValue('expiry_alert_days', $request->expiry_alert_days);
         SettingsModel::setValue('theme', $request->theme);
