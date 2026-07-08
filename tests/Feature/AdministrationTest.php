@@ -99,30 +99,9 @@ class AdministrationTest extends TestCase
     }
 
     /**
-     * Test admin can run dynamic database backup exporter.
-     */
-    public function test_admin_can_generate_backup()
-    {
-        $response = $this->actingAs($this->adminUser)
-            ->post('/admin/backup');
-
-        $response->assertRedirect();
-
-        // Check if database backup directory and file exists
-        $backupDir = storage_path('app/backups');
-        $files = File::files($backupDir);
-        $this->assertNotEmpty($files);
-
-        // Cleanup backups
-        foreach ($files as $file) {
-            File::delete($file);
-        }
-    }
-
-    /**
      * Test staff users cannot access admin endpoints.
      */
-    public function test_staff_cannot_access_settings_logs_and_backups()
+    public function test_staff_cannot_access_settings_and_logs()
     {
         // 1. Settings block
         $r1 = $this->actingAs($this->staffUser)->get('/admin/settings');
@@ -131,9 +110,5 @@ class AdministrationTest extends TestCase
         // 2. Logs block
         $r2 = $this->actingAs($this->staffUser)->get('/admin/activity-logs');
         $r2->assertRedirect('admin/dashboard');
-
-        // 3. Backups block
-        $r3 = $this->actingAs($this->staffUser)->get('/admin/backup');
-        $r3->assertRedirect('admin/dashboard');
     }
 }

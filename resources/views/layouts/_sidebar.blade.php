@@ -271,14 +271,7 @@
                     </a>
                 </li>
 
-                <!-- Database Backup (Admin Only) -->
-                <li class="nav-item">
-                    <a href="{{ url('admin/backup') }}"
-                       class="nav-link {{ Request::segment(2) == 'backup' ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-cloud-arrow-down-fill"></i>
-                        <p>Database Backup</p>
-                    </a>
-                </li>
+
                 @endif
 
                 <!-- Logout (Shared) -->

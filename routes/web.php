@@ -128,12 +128,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Activity Logs (Admin Only)
         Route::get('admin/activity-logs', [AdministrationController::class, 'logs']);
 
-        // Database Backup & Restore (Admin Only)
-        Route::get('admin/backup', [AdministrationController::class, 'backup']);
-        Route::post('admin/backup', [AdministrationController::class, 'runBackup']);
-        Route::get('admin/backup/download/{file}', [AdministrationController::class, 'downloadBackup']);
-        Route::get('admin/backup/delete/{file}', [AdministrationController::class, 'deleteBackup']);
-        Route::post('admin/backup/restore', [AdministrationController::class, 'restoreBackup']);
+
 
         // Inventory Adjustments (Admin Only)
         Route::get('admin/inventory/adjust', [InventoryController::class, 'showAdjustment']);
