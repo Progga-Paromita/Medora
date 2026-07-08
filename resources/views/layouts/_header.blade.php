@@ -93,21 +93,21 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end border-0 shadow mt-2 rounded-4" style="background: var(--bs-card-bg); border: 1px solid var(--bs-border-color) !important;">
                     <!--User Image-->
-                    <li class="user-header text-center py-4 rounded-top-4" style="background: linear-gradient(135deg, rgba(22, 31, 46, 0.95), rgba(17, 24, 39, 0.95)); border-bottom: 1px solid var(--bs-border-color);">
+                    <li class="user-header text-center py-4 rounded-top-4" style="background: linear-gradient(135deg, var(--bs-tertiary-bg), var(--bs-secondary-bg)); border-bottom: 1px solid var(--bs-border-color);">
                         <img
                             src="{{ Auth::user()->getProfileImage() }}"
                             class="rounded-circle shadow mb-2"
                             alt="User Image"
                             style="width: 80px; height: 80px; object-fit: cover; border: 2px solid var(--bs-primary);"
                         />
-                        <p class="mb-0 text-white">
+                        <p class="mb-0" style="color: var(--bs-body-color);">
                             {{ Auth::user()->name }} {{ Auth::user()->last_name }}
-                            <small class="d-block text-white-50">{{ Auth::user()->is_role == 1 ? 'Administrator' : 'Pharmacy Staff' }}</small>
+                            <small class="d-block text-muted mt-1">{{ Auth::user()->is_role == 1 ? 'Administrator' : 'Pharmacy Staff' }}</small>
                         </p>
                     </li>
                     <!--Menu Footer-->
                     <li class="user-footer d-flex justify-content-between p-3 rounded-bottom-4" style="background: var(--bs-secondary-bg);">
-                        <a href="{{ url('admin/my-account') }}" class="btn btn-outline-secondary btn-sm rounded-3 text-white border-secondary">
+                        <a href="{{ url('admin/my-account') }}" class="btn btn-outline-primary btn-sm rounded-3">
                             <i class="bi bi-person me-1"></i> Profile
                         </a>
                         <a href="{{ url('logout') }}" class="btn btn-outline-danger btn-sm rounded-3">
