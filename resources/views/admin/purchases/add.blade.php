@@ -110,8 +110,8 @@
                                                 <th style="width: 15%;">Batch ID <span class="text-danger">*</span></th>
                                                 <th style="width: 15%;">Expiry Date <span class="text-danger">*</span></th>
                                                 <th style="width: 10%;">Qty <span class="text-danger">*</span></th>
-                                                <th style="width: 12%;">Purchase Rate ($) <span class="text-danger">*</span></th>
-                                                <th style="width: 12%;">MRP ($) <span class="text-danger">*</span></th>
+                                                <th style="width: 12%;">Purchase Rate <span class="text-danger">*</span></th>
+                                                <th style="width: 12%;">MRP <span class="text-danger">*</span></th>
                                                 <th style="width: 10%;">Subtotal</th>
                                                 <th style="width: 5%;"></th>
                                             </tr>
@@ -123,7 +123,7 @@
                                             <tr>
                                                 <td colspan="6" class="text-end fw-bold text-white fs-5">Net Total Amount:</td>
                                                 <td colspan="2" class="fw-bold text-success fs-5">
-                                                    $<span id="netTotalLabel">0.00</span>
+                                                    <span id="netTotalLabel">0.00</span>
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -202,7 +202,7 @@
             // Subtotal Column
             const tdSub = document.createElement('td');
             tdSub.className = 'subtotal-cell fw-medium text-white';
-            tdSub.textContent = '$0.00';
+            tdSub.textContent = '0.00';
 
             // Remove Button
             const tdRemove = document.createElement('td');
@@ -228,7 +228,7 @@
                 const q = parseFloat(qtyInput.value) || 0;
                 const r = parseFloat(rateInput.value) || 0;
                 const sub = q * r;
-                tdSub.textContent = '$' + sub.toFixed(2);
+                tdSub.textContent =  sub.toFixed(2);
                 recalculateNetTotal();
             }
 

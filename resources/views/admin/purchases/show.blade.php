@@ -31,8 +31,8 @@
                                 <span class="text-muted small">Supplier: <strong>{{ optional($purchase->getSupplierName)->name ?? 'N/A' }}</strong></span>
                             </div>
                             <div class="text-end">
-                                <span class="text-muted small d-block">Voucher Date</span>
-                                <strong class="text-white">{{ date('M d, Y', strtotime($purchase->purchase_date)) }}</strong>
+                                <strong class="text-white small d-block">Voucher Date</strong>
+                                <span class="text-secondary">{{ date('M d, Y', strtotime($purchase->purchase_date)) }}</span>
                             </div>
                         </div>
 
@@ -52,7 +52,7 @@
                                     <h6 class="text-secondary text-uppercase small fw-bold">Payment Summary</h6>
                                     <div class="border rounded p-3 h-100 d-flex flex-column justify-content-center" style="border-color: var(--bs-border-color) !important;">
                                         <div class="mb-2">
-                                            <span class="text-muted small d-block">Payment Lifecycle Status</span>
+                                            <strong class="text-white small d-block">Payment Lifecycle Status</strong>
                                             @if($purchase->payment_status == 1)
                                                 <span class="badge bg-warning text-dark px-3 py-1 rounded-pill mt-1">Pending</span>
                                             @elseif($purchase->payment_status == 2)
@@ -62,8 +62,8 @@
                                             @endif
                                         </div>
                                         <div>
-                                            <span class="text-muted small d-block">Voucher Created</span>
-                                            <span class="text-white">{{ $purchase->created_at->format('M d, Y h:i A') }}</span>
+                                            <strong class="text-white small d-block">Voucher Created</strong>
+                                            <span class="text-secondary">{{ $purchase->created_at->format('M d, Y h:i A') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -75,13 +75,13 @@
                                 <table class="table align-middle">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>Serial</th>
                                             <th>Medicine Name</th>
                                             <th>Generic Name</th>
                                             <th>Packaging</th>
                                             <th class="text-center">Qty Purchased</th>
-                                            <th class="text-end">Purchase Rate ($)</th>
-                                            <th class="text-end">Subtotal ($)</th>
+                                            <th class="text-end">Purchase Rate</th>
+                                            <th class="text-end">Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,15 +92,15 @@
                                                 <td class="text-secondary">{{ optional($item->getMedicine)->generic_name ?? 'N/A' }}</td>
                                                 <td><span class="badge bg-secondary-subtle border px-2 py-0.5 rounded-pill">{{ optional($item->getMedicine)->packaging ?? 'N/A' }}</span></td>
                                                 <td class="text-center fw-bold">{{ $item->quantity }}</td>
-                                                <td class="text-end">${{ number_format($item->purchase_rate, 2) }}</td>
-                                                <td class="text-end fw-bold text-success">${{ number_format($item->subtotal, 2) }}</td>
+                                                <td class="text-end">{{ number_format($item->purchase_rate, 2) }}</td>
+                                                <td class="text-end fw-bold text-success">{{ number_format($item->subtotal, 2) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="6" class="text-end fw-bold text-white fs-5">Net Total Amount:</td>
-                                            <td class="text-end fw-bold text-success fs-5">${{ number_format($purchase->net_total, 2) }}</td>
+                                            <td class="text-end fw-bold text-success fs-5">{{ number_format($purchase->net_total, 2) }}</td>
                                         </tr>
                                     </tfoot>
                                 </table>

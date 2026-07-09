@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\SuppliersModel;
+use App\Models\PurchasesModel;
 
 class SuppliersController extends Controller
 {
@@ -54,8 +55,47 @@ class SuppliersController extends Controller
     public function show($id): View
     {
         $supplier = SuppliersModel::findOrFail($id);
+        
+        // Fetch supply history (purchases with items and medicines)
+        $purchases = PurchasesModel::where('supplier_id', $supplier->id)
+            ->where('is_deleted', 0)
+            ->with(['getPurchaseItems.getMedicine'])
+            ->orderBy('purchase_date', 'desc')
+            ->orderBy('id', 'desc')
+            ->get();
+            
+        // Calculate statistics
+        $totalPurchases = $purchases->count();
+        
+        $totalBillAmount = 0;
+        $paidAmount = 0;
+        $pendingAmount = 0;
+        $totalQuantitySupplied = 0;
+        
+        foreach ($purchases as $purchase) {
+            // Only count if not cancelled (status != 3)
+            if ($purchase->payment_status != 3) {
+                $totalBillAmount += $purchase->net_total;
+                if ($purchase->payment_status == 2) {
+                    $paidAmount += $purchase->net_total;
+                } elseif ($purchase->payment_status == 1) {
+                    $pendingAmount += $purchase->net_total;
+                }
+            }
+            foreach ($purchase->getPurchaseItems as $item) {
+                $totalQuantitySupplied += $item->quantity;
+            }
+        }
+        
         $data['supplier'] = $supplier;
+        $data['purchases'] = $purchases;
+        $data['totalPurchases'] = $totalPurchases;
+        $data['totalQuantitySupplied'] = $totalQuantitySupplied;
+        $data['totalBillAmount'] = $totalBillAmount;
+        $data['paidAmount'] = $paidAmount;
+        $data['pendingAmount'] = $pendingAmount;
         $data['header_title'] = 'Supplier Details';
+        
         return view('admin.suppliers.show', $data);
     }
 

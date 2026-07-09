@@ -42,42 +42,100 @@
                             <h5 class="fw-bold mb-3 text-white border-bottom pb-2">Contact & Company Info</h5>
                             <div class="row g-4 mb-4">
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Phone Number</span>
-                                    <strong class="text-white">{{ $supplier->phone ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Phone Number</strong>
+                                    <span class="text-secondary">{{ $supplier->phone ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Email Address</span>
-                                    <strong class="text-white text-secondary">{{ $supplier->email ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Email Address</strong>
+                                    <span class="text-secondary">{{ $supplier->email ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-12">
-                                    <span class="text-muted small d-block">Company Address</span>
-                                    <strong class="text-white d-block">{{ $supplier->address ?? 'N/A' }}</strong>
+                                    <strong class="text-white small d-block">Company Address</strong>
+                                    <span class="text-secondary d-block">{{ $supplier->address ?? 'N/A' }}</span>
                                 </div>
-                                <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Created On</span>
-                                    <span class="text-white">{{ $supplier->created_at->format('M d, Y h:i A') }}</span>
+
+                            </div>
+
+                            <!-- Account Summary -->
+                            <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Account Summary</h5>
+                            <div class="row g-3">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(59, 130, 246, 0.02);">
+                                        <strong class="text-white small d-block mb-1">Total Amount</strong>
+                                        <h4 class="mb-0 fw-bold text-white">{{ number_format($totalBillAmount, 2) }}</h4>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <span class="text-muted small d-block">Last Updated</span>
-                                    <span class="text-white">{{ $supplier->updated_at->format('M d, Y h:i A') }}</span>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(34, 197, 94, 0.02);">
+                                        <strong class="text-white small d-block mb-1">Given Amount</strong>
+                                        <h4 class="mb-0 fw-bold text-success">{{ number_format($paidAmount, 2) }}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="border rounded p-3 text-center h-100" style="border-color: var(--bs-border-color) !important; background: rgba(239, 68, 68, 0.02);">
+                                        <strong class="text-white small d-block mb-1">Pending Amount</strong>
+                                        <h4 class="mb-0 fw-bold text-danger">{{ number_format($pendingAmount, 2) }}</h4>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Integration Placeholders -->
-                            <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Inventory & Sales Integration</h5>
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <div class="border rounded p-3 text-center" style="border-color: var(--bs-border-color) !important;">
-                                        <h6 class="text-muted mb-1 small">Total Purchases</h6>
-                                        <h4 class="mb-0 fw-bold text-white">0 <span class="text-xs text-muted fw-normal">(Placeholder)</span></h4>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="border rounded p-3 text-center" style="border-color: var(--bs-border-color) !important;">
-                                        <h6 class="text-muted mb-1 small">Medicines Supplied</h6>
-                                        <h4 class="mb-0 fw-bold text-white">0 <span class="text-xs text-muted fw-normal">(Placeholder)</span></h4>
-                                    </div>
-                                </div>
+                            <!-- Supply History -->
+                            <h5 class="fw-bold mb-3 text-white border-bottom pb-2 mt-5">Supply History</h5>
+                            <div class="table-responsive">
+                                <table class="table align-middle table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Serial</th>
+                                            <th>Voucher Number</th>
+                                            <th>Purchase Date</th>
+                                            <th>Medicines Supplied</th>
+                                            <th>Net Total</th>
+                                            <th>Payment Status</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($purchases as $purchase)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="fw-bold text-white">{{ $purchase->voucher_number }}</td>
+                                                <td>{{ date('M d, Y', strtotime($purchase->purchase_date)) }}</td>
+                                                <td>
+                                                    <ul class="list-unstyled mb-0 small">
+                                                        @foreach($purchase->getPurchaseItems as $item)
+                                                            <li>
+                                                                <span class="text-white">{{ $item->getMedicine->name ?? 'N/A' }}</span>
+                                                                <span class="text-muted">({{ $item->quantity }} units)</span>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td class="text-white">{{ number_format($purchase->net_total, 2) }}</td>
+                                                <td>
+                                                    @if($purchase->payment_status === 'Paid')
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill">Paid</span>
+                                                    @elseif($purchase->payment_status === 'Pending')
+                                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1 rounded-pill">Pending</span>
+                                                    @else
+                                                        <span class="badge bg-secondary-subtle text-white border px-2 py-1 rounded-pill">{{ $purchase->payment_status }}</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-end">
+                                                    <a href="{{ url('admin/purchases/show/'.$purchase->id) }}" class="btn btn-outline-info btn-sm rounded-3" title="View Purchase Details">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center text-danger py-4">
+                                                    <i class="bi bi-exclamation-circle fs-4 mb-2 d-block"></i>
+                                                    No supply transactions found for this supplier.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
 
                             <!-- Buttons -->

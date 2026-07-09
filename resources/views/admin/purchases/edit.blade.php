@@ -110,8 +110,8 @@
                                                 <th style="width: 15%;">Batch ID <span class="text-danger">*</span></th>
                                                 <th style="width: 15%;">Expiry Date <span class="text-danger">*</span></th>
                                                 <th style="width: 10%;">Qty <span class="text-danger">*</span></th>
-                                                <th style="width: 12%;">Purchase Rate ($) <span class="text-danger">*</span></th>
-                                                <th style="width: 12%;">MRP ($) <span class="text-danger">*</span></th>
+                                                <th style="width: 12%;">Purchase Rate <span class="text-danger">*</span></th>
+                                                <th style="width: 12%;">MRP <span class="text-danger">*</span></th>
                                                 <th style="width: 10%;">Subtotal</th>
                                                 <th style="width: 5%;"></th>
                                             </tr>
@@ -151,7 +151,7 @@
                                                                min="0.01" value="{{ $item->mrp }}" required>
                                                     </td>
                                                     <td class="subtotal-cell fw-medium text-white">
-                                                        ${{ number_format($item->subtotal, 2) }}
+                                                        {{ number_format($item->subtotal, 2) }}
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-outline-danger btn-sm remove-row-btn"><i class="bi bi-trash"></i></button>
@@ -163,7 +163,7 @@
                                             <tr>
                                                 <td colspan="6" class="text-end fw-bold text-white fs-5">Net Total Amount:</td>
                                                 <td colspan="2" class="fw-bold text-success fs-5">
-                                                    $<span id="netTotalLabel">{{ number_format($getRecord->net_total, 2) }}</span>
+                                                    <span id="netTotalLabel">{{ number_format($getRecord->net_total, 2) }}</span>
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -215,7 +215,7 @@
                 const q = parseFloat(qtyInput.value) || 0;
                 const r = parseFloat(rateInput.value) || 0;
                 const sub = q * r;
-                tdSub.textContent = '$' + sub.toFixed(2);
+                tdSub.textContent =  sub.toFixed(2);
                 recalculateNetTotal();
             }
 
@@ -257,7 +257,7 @@
 
             const tdSub = document.createElement('td');
             tdSub.className = 'subtotal-cell fw-medium text-white';
-            tdSub.textContent = '$0.00';
+            tdSub.textContent = '0.00';
 
             const tdRemove = document.createElement('td');
             tdRemove.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm remove-row-btn"><i class="bi bi-trash"></i></button>`;
