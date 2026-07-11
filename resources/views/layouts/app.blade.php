@@ -9,8 +9,8 @@
     <!-- Fast Synchronous Theme Bootstrap (prevents white/black flashes on load) -->
     <script>
       (function() {
-        const storedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-bs-theme', storedTheme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : storedTheme);
+        const storedTheme = '{{ \App\Models\SettingsModel::getValue('theme', 'dark') }}';
+        document.documentElement.setAttribute('data-bs-theme', storedTheme);
       })();
     </script>
 

@@ -4,6 +4,12 @@
 </div>
 @endif
 
+@if (!empty(session('success_html')))
+<div class="alert alert-success">
+{!! session('success_html') !!}
+</div>
+@endif
+
 @if (!empty(session('error')))
 <div class="alert alert-danger">
 {{ session('error') }}
